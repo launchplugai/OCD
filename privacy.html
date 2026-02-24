@@ -69,9 +69,9 @@
     <!-- Navigation Header -->
     <div style="view-transition-name: main-nav;" class="z-50">
       <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
-<div v-scope="{ ...{&quot;activeItem&quot;:&quot;&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }">
-<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
-  <div class="flex items-center gap-16">
+<div v-scope="{ mobileOpen: false, ...{&quot;activeItem&quot;:&quot;&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+  <div class="flex items-center gap-4 lg:gap-16">
     <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
       <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
         <span class="text-black font-black text-sm font-display">OCD</span>
@@ -97,15 +97,27 @@
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
     </nav>
   </div>
-  <div class="flex items-center gap-10">
+  <div class="flex items-center gap-4 md:gap-10">
     <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
       <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
     </a>
-    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+    <a :href="discoveryHref" id="nav-cta-discovery" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
       Discovery Call
     </a>
+    <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+      <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+    </button>
   </div>
 </header>
+  <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+    <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+      <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+      <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+      <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
+    </nav>
+  </div>
 </div>
 <!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
     </div>

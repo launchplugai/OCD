@@ -85,9 +85,9 @@
     <div class="noise-bg"></div>
     
     <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
-<div v-scope="{ ...{&quot;activeItem&quot;:&quot;artists&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
-<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
-  <div class="flex items-center gap-16">
+<div v-scope="{ mobileOpen: false, ...{&quot;activeItem&quot;:&quot;artists&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+  <div class="flex items-center gap-4 lg:gap-16">
     <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
       <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
         <span class="text-black font-black text-sm font-display">OCD</span>
@@ -113,15 +113,27 @@
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
     </nav>
   </div>
-  <div class="flex items-center gap-10">
+  <div class="flex items-center gap-4 md:gap-10">
     <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
       <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
     </a>
-    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+    <a :href="discoveryHref" id="nav-cta-discovery" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
       Discovery Call
     </a>
   </div>
+    <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+      <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+    </button>
 </header>
+  <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+    <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+      <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+      <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+      <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
+    </nav>
+  </div>
 </div>
 <!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
 
@@ -131,7 +143,7 @@
       <div class="max-w-4xl mx-auto px-6">
         <div class="mb-16 space-y-4">
           <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600">Transmission Protocol</p>
-          <h1 class="font-display text-7xl font-black uppercase tracking-tighter">Artist Submission</h1>
+          <h1 class="font-display text-4xl md:text-7xl font-black uppercase tracking-tighter">Artist Submission</h1>
           <p class="text-white/50 text-xl font-light max-w-2xl">Join the sonic architecture. We review every submission manually within 14 business days. Focus on high-fidelity, uncompromising vision.</p>
         </div>
 
@@ -247,15 +259,15 @@
 
     <!-- component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
 <div v-scope="{ ...{&quot;isPlaying&quot;:false,&quot;currentTime&quot;:&quot;00:00&quot;,&quot;totalTime&quot;:&quot;03:45&quot;,&quot;progressPercent&quot;:0,&quot;volumePercent&quot;:80}, $emit() {} }" style="view-transition-name: audio-player">
-<div class="fixed bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-5xl z-50"><div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5 flex items-center gap-12 shadow-[0_30px_60px_rgba(0,0,0,0.8)]"><div class="flex items-center gap-5 min-w-[240px]"><div @click="$emit('maximize')" class="w-14 h-14 bg-zinc-800 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200" alt="Now Playing"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><iconify-icon icon="lucide:maximize-2" class="text-white"></iconify-icon></div></div><div class="overflow-hidden"><h6 class="text-sm font-bold uppercase tracking-tight truncate">Entropy 001</h6><p class="text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] truncate mt-1">Neural Ghost</p></div></div><div class="flex items-center gap-8"><iconify-icon @click="$emit('previous')" icon="lucide:skip-back" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon><div @click="$emit('togglePlay')" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 hover:text-white transition-all"><iconify-icon v-if="isPlaying" icon="lucide:pause" class="text-2xl"></iconify-icon><iconify-icon v-else icon="lucide:play" class="text-2xl"></iconify-icon></div><iconify-icon @click="$emit('next')" icon="lucide:skip-forward" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon></div><div class="flex-1 flex flex-col gap-2"><div class="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]"><span>{{ currentTime }}</span><span>{{ totalTime }}</span></div><div @click="$emit('seek')" class="h-1 bg-white/10 relative rounded-full overflow-hidden cursor-pointer"><div class="absolute left-0 top-0 h-full bg-red-600" :style="{ width: progressPercent + '%' }"></div></div></div><div class="flex items-center gap-8"><div class="flex items-center gap-3"><iconify-icon icon="lucide:volume-2" class="text-white/30 text-lg"></iconify-icon><div class="w-20 h-1 bg-white/10 relative rounded-full"><div class="absolute left-0 top-0 h-full bg-white/40" :style="{ width: volumePercent + '%' }"></div></div></div><iconify-icon @click="$emit('togglePlaylist')" icon="lucide:list-music" class="text-white/30 hover:text-white cursor-pointer transition-colors text-xl"></iconify-icon></div></div></div>
+<div class="fixed bottom-4 md:bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] md:w-[calc(100%-48px)] max-w-5xl z-50"><div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-4 py-3 md:px-10 md:py-5 flex items-center gap-3 md:gap-12 shadow-[0_30px_60px_rgba(0,0,0,0.8)]"><div class="flex items-center gap-3 md:gap-5 min-w-0 md:min-w-[240px]"><div @click="$emit('maximize')" class="w-10 h-10 md:w-14 md:h-14 bg-zinc-800 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200" alt="Now Playing"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><iconify-icon icon="lucide:maximize-2" class="text-white"></iconify-icon></div></div><div class="overflow-hidden"><h6 class="text-xs md:text-sm font-bold uppercase tracking-tight truncate">Entropy 001</h6><p class="text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] truncate mt-1">Neural Ghost</p></div></div><div class="flex items-center gap-8"><iconify-icon @click="$emit('previous')" icon="lucide:skip-back" class="hidden md:inline-block text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon><div @click="$emit('togglePlay')" class="w-10 h-10 md:w-12 md:h-12 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 hover:text-white transition-all"><iconify-icon v-if="isPlaying" icon="lucide:pause" class="text-2xl"></iconify-icon><iconify-icon v-else icon="lucide:play" class="text-2xl"></iconify-icon></div><iconify-icon @click="$emit('next')" icon="lucide:skip-forward" class="hidden md:inline-block text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon></div><div class="flex-1 flex flex-col gap-2"><div class="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]"><span>{{ currentTime }}</span><span>{{ totalTime }}</span></div><div @click="$emit('seek')" class="h-1 bg-white/10 relative rounded-full overflow-hidden cursor-pointer"><div class="absolute left-0 top-0 h-full bg-red-600" :style="{ width: progressPercent + '%' }"></div></div></div><div class="hidden md:flex items-center gap-8"><div class="flex items-center gap-3"><iconify-icon icon="lucide:volume-2" class="text-white/30 text-lg"></iconify-icon><div class="w-20 h-1 bg-white/10 relative rounded-full"><div class="absolute left-0 top-0 h-full bg-white/40" :style="{ width: volumePercent + '%' }"></div></div></div><iconify-icon @click="$emit('togglePlaylist')" icon="lucide:list-music" class="text-white/30 hover:text-white cursor-pointer transition-colors text-xl"></iconify-icon></div></div></div>
 </div>
 <!-- /component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
 
     <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
 <div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }" style="view-transition-name: main-footer">
-<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+<footer class="border-t border-white/5 bg-black pt-16 pb-32 md:pt-32 md:pb-48 px-4 md:px-12">
    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-12 gap-16 mb-24">
+      <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
          <div class="col-span-12 lg:col-span-4">
             <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
                <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
