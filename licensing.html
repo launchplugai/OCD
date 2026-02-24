@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Licensing | OCD Records</title>
+  <meta name="view-transition" content="same-origin">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="prefetch" href="index.html" as="document">
+  <link rel="prefetch" href="catalog.html" as="document">
+  <link rel="prefetch" href="release.html" as="document">
+  <link rel="prefetch" href="artist.html" as="document">
+  <link rel="prefetch" href="submit.html" as="document">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-dark {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute; width: 800px; height: 800px; border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    .reveal-anim {
+      animation: reveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+
+    @keyframes reveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    html { background-color: #000000; }
+
+    @view-transition { navigation: auto; }
+    ::view-transition { background-color: #000000; }
+
+    ::view-transition-old(main-nav), ::view-transition-new(main-nav),
+    ::view-transition-old(audio-player), ::view-transition-new(audio-player),
+    ::view-transition-old(main-footer), ::view-transition-new(main-footer) {
+      animation: none; mix-blend-mode: normal;
+    }
+
+    ::view-transition-old(main-content) { animation: 0.25s ease-out both fade-out; }
+    ::view-transition-new(main-content) { animation: 0.25s ease-in 0.1s both fade-in; }
+
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+  </style>
+  <style>sd-component { display: block; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+
+    <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+<div v-scope="{ ...{&quot;activeItem&quot;:&quot;licensing&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-16">
+    <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+        <span class="text-black font-black text-sm font-display">OCD</span>
+      </div>
+      <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+    </a>
+    <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref"
+         id="nav-link-catalog"
+         class="transition-colors duration-300"
+         :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+      <a :href="artistsHref"
+         id="nav-link-artists"
+         class="transition-colors duration-300"
+         :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+      <a :href="studiosHref"
+         id="nav-link-studios"
+         class="transition-colors duration-300"
+         :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+      <a :href="licensingHref"
+         id="nav-link-licensing"
+         class="transition-colors duration-300"
+         :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-10">
+    <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
+      <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+    </a>
+    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+      Discovery Call
+    </a>
+  </div>
+</header>
+</div>
+<!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+
+    <main style="view-transition-name: main-content">
+
+      <!-- Hero Section -->
+      <section class="relative min-h-[70vh] flex flex-col justify-center px-12 pt-40 pb-20">
+        <div class="hero-glow top-[-200px] left-[-200px]"></div>
+        <div class="hero-glow bottom-[-100px] right-[-300px]" style="background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);"></div>
+
+        <div class="max-w-7xl mx-auto w-full reveal-anim">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-8">Frequency Rights / Sync Protocol</p>
+          <h1 class="font-display text-[clamp(60px,10vw,140px)] font-black leading-[0.82] uppercase tracking-tighter mb-12">
+            Licensing
+          </h1>
+          <p class="max-w-2xl text-xl text-white/60 leading-relaxed font-light">
+            License OCD Records music for your projects. From independent films to global campaigns, our catalog of obsessively crafted sound is available for sync, broadcast, and commercial use.
+          </p>
+        </div>
+      </section>
+
+      <!-- Pricing Tiers Section -->
+      <section class="py-40 px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex justify-between items-end mb-24">
+            <div class="space-y-4">
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// 01 License Tiers</p>
+              <h2 class="font-display text-7xl font-black uppercase tracking-tighter">Select Your Tier</h2>
+            </div>
+            <p class="max-w-xs text-sm text-white/40 leading-relaxed hidden md:block">
+              Every license includes high-fidelity master files and full legal clearance documentation.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Standard License -->
+            <div class="glass p-10 flex flex-col justify-between group hover:border-white/20 transition-all duration-500">
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-6">Tier 01</p>
+                <h3 class="font-display text-3xl font-black uppercase tracking-tight mb-2">Standard License</h3>
+                <div class="flex items-baseline gap-2 mb-8">
+                  <span class="font-display text-5xl font-black text-red-600">$299</span>
+                  <span class="font-mono text-[10px] text-white/30 uppercase tracking-widest">/ per track</span>
+                </div>
+                <div class="h-px bg-white/10 mb-8"></div>
+                <ul class="space-y-4 mb-10">
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Single project use (one production)</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Social media and online platforms</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Up to 500,000 impressions</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">MP3 and WAV master delivery</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">12-month license duration</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:x" class="text-white/20 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/20">Broadcast and television rights</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:x" class="text-white/20 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/20">Exclusive or buyout options</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="submit.html" class="block w-full py-5 border border-white/20 text-center font-display font-black uppercase tracking-[0.2em] text-sm hover:bg-white hover:text-black transition-all duration-500">
+                Request License
+              </a>
+            </div>
+
+            <!-- Premium License -->
+            <div class="glass p-10 flex flex-col justify-between relative group border-red-600/30 hover:border-red-600/60 transition-all duration-500">
+              <div class="absolute -top-px left-0 right-0 h-px bg-red-600"></div>
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-red-600">Tier 02</p>
+                  <span class="font-mono text-[9px] uppercase tracking-[0.3em] px-3 py-1 bg-red-600 text-white">Recommended</span>
+                </div>
+                <h3 class="font-display text-3xl font-black uppercase tracking-tight mb-2">Premium License</h3>
+                <div class="flex items-baseline gap-2 mb-8">
+                  <span class="font-display text-5xl font-black text-red-600">$799</span>
+                  <span class="font-mono text-[10px] text-white/30 uppercase tracking-widest">/ per track</span>
+                </div>
+                <div class="h-px bg-white/10 mb-8"></div>
+                <ul class="space-y-4 mb-10">
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Multi-project use (up to 3 productions)</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">All digital platforms and streaming</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Unlimited impressions</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Broadcast and television rights included</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Stems and instrumental versions</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-red-600 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">24-month license duration</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:x" class="text-white/20 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/20">Exclusive or buyout options</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="submit.html" class="block w-full py-5 bg-red-600 text-center font-display font-black uppercase tracking-[0.2em] text-sm hover:bg-white hover:text-black transition-all duration-500">
+                Request License
+              </a>
+            </div>
+
+            <!-- Enterprise License -->
+            <div class="glass p-10 flex flex-col justify-between group hover:border-cyan-400/30 transition-all duration-500">
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-cyan-400 mb-6">Tier 03</p>
+                <h3 class="font-display text-3xl font-black uppercase tracking-tight mb-2">Enterprise License</h3>
+                <div class="flex items-baseline gap-2 mb-8">
+                  <span class="font-display text-5xl font-black text-cyan-400">Custom</span>
+                  <span class="font-mono text-[10px] text-white/30 uppercase tracking-widest">/ tailored</span>
+                </div>
+                <div class="h-px bg-white/10 mb-8"></div>
+                <ul class="space-y-4 mb-10">
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Unlimited project use worldwide</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">All media including theatrical and gaming</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Unlimited impressions, perpetual term</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Full stems, multitracks, and source files</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Exclusive and buyout options available</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Custom composition and scoring</span>
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <iconify-icon icon="lucide:check" class="text-cyan-400 mt-1 flex-shrink-0"></iconify-icon>
+                    <span class="text-sm text-white/60">Dedicated account manager</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="submit.html" class="block w-full py-5 border border-cyan-400/40 text-center font-display font-black uppercase tracking-[0.2em] text-sm text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all duration-500">
+                Contact Us
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Licensing Process Section -->
+      <section class="py-40 bg-zinc-950 px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-24 flex items-center gap-12">
+            <h2 class="font-display text-7xl font-black uppercase tracking-tighter">The Process</h2>
+            <div class="h-px flex-1 bg-white/10"></div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic hidden md:block">// 02 How It Works</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+
+            <!-- Step 1 -->
+            <div class="relative group">
+              <div class="flex items-center gap-6 mb-8">
+                <div class="w-16 h-16 border border-white/20 flex items-center justify-center group-hover:border-red-600 transition-colors duration-500">
+                  <iconify-icon icon="lucide:search" class="text-2xl text-white/40 group-hover:text-red-600 transition-colors"></iconify-icon>
+                </div>
+                <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.5em]">Step 01</span>
+              </div>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight mb-4">Browse & Select</h3>
+              <p class="text-white/40 leading-relaxed">
+                Explore our full catalog of meticulously produced tracks. Filter by genre, mood, tempo, or artist to find the perfect frequency for your project. Preview full-length masters directly in the browser.
+              </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative group">
+              <div class="flex items-center gap-6 mb-8">
+                <div class="w-16 h-16 border border-white/20 flex items-center justify-center group-hover:border-red-600 transition-colors duration-500">
+                  <iconify-icon icon="lucide:file-text" class="text-2xl text-white/40 group-hover:text-red-600 transition-colors"></iconify-icon>
+                </div>
+                <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.5em]">Step 02</span>
+              </div>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight mb-4">Request & Review</h3>
+              <p class="text-white/40 leading-relaxed">
+                Submit your licensing request with project details. Our sync team reviews every inquiry within 24-48 hours and provides a tailored agreement based on your usage scope and distribution needs.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative group">
+              <div class="flex items-center gap-6 mb-8">
+                <div class="w-16 h-16 border border-white/20 flex items-center justify-center group-hover:border-cyan-400 transition-colors duration-500">
+                  <iconify-icon icon="lucide:download" class="text-2xl text-white/40 group-hover:text-cyan-400 transition-colors"></iconify-icon>
+                </div>
+                <span class="font-mono text-[10px] text-cyan-400 uppercase tracking-[0.5em]">Step 03</span>
+              </div>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight mb-4">License & Deploy</h3>
+              <p class="text-white/40 leading-relaxed">
+                Once approved, receive your high-fidelity master files, stems, and complete legal documentation. Deploy the licensed audio across your approved channels with full clearance and peace of mind.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="py-40 px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex justify-between items-end mb-24">
+            <div class="space-y-4">
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// 03 Knowledge Base</p>
+              <h2 class="font-display text-7xl font-black uppercase tracking-tighter">FAQ</h2>
+            </div>
+          </div>
+
+          <div class="max-w-4xl">
+            <div v-scope="{ openFaq: null }">
+
+              <!-- FAQ Item 1 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 1 ? null : 1" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">What types of projects can I license music for?</h4>
+                  <iconify-icon :icon="openFaq === 1 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 1" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    OCD Records music can be licensed for film, television, advertising, video games, podcasts, social media content, corporate presentations, and live events. Our Standard License covers digital and social media use, while Premium and Enterprise tiers extend to broadcast, theatrical, and global campaign distribution.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ Item 2 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 2 ? null : 2" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">Can I get an exclusive license for a track?</h4>
+                  <iconify-icon :icon="openFaq === 2 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 2" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    Yes. Exclusive licenses and full buyouts are available through our Enterprise tier. This ensures the track is pulled from our general licensing catalog for the duration of your agreement. Contact our sync team to discuss exclusive arrangements and custom pricing based on your specific needs.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ Item 3 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 3 ? null : 3" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">What file formats are included with my license?</h4>
+                  <iconify-icon :icon="openFaq === 3 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 3" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    Standard licenses include high-quality MP3 (320kbps) and WAV (24-bit/48kHz) master files. Premium licenses add individual stems and instrumental versions. Enterprise licenses provide full multitracks, source project files, and any custom edits or versions you require for your production.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ Item 4 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 4 ? null : 4" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">How long does the licensing process take?</h4>
+                  <iconify-icon :icon="openFaq === 4 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 4" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    Our sync team reviews and responds to all licensing requests within 24-48 hours. Standard and Premium licenses can typically be finalized within 3-5 business days. Enterprise and custom arrangements may require additional time depending on the scope of the agreement, but we always prioritize urgency for time-sensitive productions.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ Item 5 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 5 ? null : 5" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">Can I commission original music for my project?</h4>
+                  <iconify-icon :icon="openFaq === 5 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 5" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    Absolutely. Through our Enterprise tier, you can commission original compositions tailored to your project. Our roster of artists and in-house engineers will collaborate with your creative team to produce bespoke sonic architecture from concept to final master. Custom scoring is quoted on a per-project basis.
+                  </p>
+                </div>
+              </div>
+
+              <!-- FAQ Item 6 -->
+              <div class="border-b border-white/10">
+                <button @click="openFaq = openFaq === 6 ? null : 6" class="w-full py-8 flex items-center justify-between text-left group">
+                  <h4 class="font-display text-xl font-black uppercase tracking-tight group-hover:text-red-600 transition-colors">What happens when my license expires?</h4>
+                  <iconify-icon :icon="openFaq === 6 ? 'lucide:minus' : 'lucide:plus'" class="text-xl text-white/40 group-hover:text-red-600 transition-colors flex-shrink-0 ml-8"></iconify-icon>
+                </button>
+                <div v-show="openFaq === 6" class="pb-8">
+                  <p class="text-white/50 leading-relaxed max-w-3xl">
+                    When a Standard or Premium license reaches its term, you can renew at a discounted rate or upgrade to a longer-term tier. Content already published during the active license period remains covered. Enterprise perpetual licenses do not expire. We send renewal reminders 30 days before expiration so your projects are never interrupted.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="py-60 relative">
+        <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/10"></div>
+        <div class="max-w-4xl mx-auto px-12 text-center space-y-16">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// 04 Custom Inquiry</p>
+          <h2 class="font-display text-[80px] font-black uppercase leading-[0.9] tracking-tighter">
+            Need Something<br/>
+            Bespoke?
+          </h2>
+          <p class="text-xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed">
+            For multi-track deals, exclusive catalog access, custom compositions, or enterprise-scale licensing agreements, reach out to our sync team directly.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-8">
+            <a href="submit.html" id="cta-contact-licensing" class="px-14 py-6 bg-white text-black font-display font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-2">
+              Contact Sync Team
+            </a>
+            <a href="catalog.html" id="cta-browse-catalog" class="px-14 py-6 border border-white/20 text-white font-display font-black uppercase tracking-widest hover:bg-white/10 transition-all transform hover:-translate-y-2">
+              Browse Catalog
+            </a>
+          </div>
+          <p class="font-mono text-[10px] text-white/20 uppercase tracking-[0.5em]">Response Window: 24-48 Hours</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+<div v-scope="{ ...{&quot;isPlaying&quot;:false,&quot;currentTime&quot;:&quot;00:00&quot;,&quot;totalTime&quot;:&quot;03:45&quot;,&quot;progressPercent&quot;:0,&quot;volumePercent&quot;:80}, $emit() {} }" style="view-transition-name: audio-player">
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-5xl z-50"><div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5 flex items-center gap-12 shadow-[0_30px_60px_rgba(0,0,0,0.8)]"><div class="flex items-center gap-5 min-w-[240px]"><div @click="$emit('maximize')" class="w-14 h-14 bg-zinc-800 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200" alt="Now Playing"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><iconify-icon icon="lucide:maximize-2" class="text-white"></iconify-icon></div></div><div class="overflow-hidden"><h6 class="text-sm font-bold uppercase tracking-tight truncate">Entropy 001</h6><p class="text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] truncate mt-1">Neural Ghost</p></div></div><div class="flex items-center gap-8"><iconify-icon @click="$emit('previous')" icon="lucide:skip-back" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon><div @click="$emit('togglePlay')" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 hover:text-white transition-all"><iconify-icon v-if="isPlaying" icon="lucide:pause" class="text-2xl"></iconify-icon><iconify-icon v-else icon="lucide:play" class="text-2xl"></iconify-icon></div><iconify-icon @click="$emit('next')" icon="lucide:skip-forward" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon></div><div class="flex-1 flex flex-col gap-2"><div class="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]"><span>{{ currentTime }}</span><span>{{ totalTime }}</span></div><div @click="$emit('seek')" class="h-1 bg-white/10 relative rounded-full overflow-hidden cursor-pointer"><div class="absolute left-0 top-0 h-full bg-red-600" :style="{ width: progressPercent + '%' }"></div></div></div><div class="flex items-center gap-8"><div class="flex items-center gap-3"><iconify-icon icon="lucide:volume-2" class="text-white/30 text-lg"></iconify-icon><div class="w-20 h-1 bg-white/10 relative rounded-full"><div class="absolute left-0 top-0 h-full bg-white/40" :style="{ width: volumePercent + '%' }"></div></div></div><iconify-icon @click="$emit('togglePlaylist')" icon="lucide:list-music" class="text-white/30 hover:text-white cursor-pointer transition-colors text-xl"></iconify-icon></div></div></div>
+</div>
+<!-- /component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+
+    <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }" style="view-transition-name: main-footer">
+<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+   <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-12 gap-16 mb-24">
+         <div class="col-span-12 lg:col-span-4">
+            <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
+               <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+               </div>
+               <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+            </a>
+            <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+               The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+            </p>
+            <div class="flex gap-8">
+               <a :href="instagramHref" id="social-ig" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+               <a :href="twitterHref" id="social-tw" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+               <a :href="youtubeHref" id="social-yt" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+               <a :href="soundcloudHref" id="social-sc" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+            </div>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="releasesHref" id="footer-nav-catalog" class="hover:text-red-600 transition-colors">Releases</a></li>
+               <li><a :href="artistsHref" id="footer-nav-artists" class="hover:text-red-600 transition-colors">Artists</a></li>
+               <li><a :href="licensingHref" id="footer-nav-licensing" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="submissionsHref" id="footer-nav-submissions" class="hover:text-red-600 transition-colors">Submissions</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="equipmentHref" id="footer-nav-equipment" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+               <li><a :href="bookingHref" id="footer-nav-booking" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+               <li><a :href="engineersHref" id="footer-nav-engineers" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-12 lg:col-span-4 space-y-10">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+            <form @submit.prevent="$emit('subscribe', { email: $event.target.querySelector('input').value })" class="flex flex-col gap-4">
+               <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+               <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+            </form>
+         </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+         <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">&copy; 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+         <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+            <a :href="privacyHref" id="legal-privacy" class="hover:text-white transition-colors">Privacy</a>
+            <a :href="termsHref" id="legal-terms" class="hover:text-white transition-colors">Terms</a>
+            <a :href="cookiesHref" id="legal-cookies" class="hover:text-white transition-colors">Cookies</a>
+         </div>
+      </div>
+   </div>
+</footer>
+</div>
+<!-- /component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+  </div>
+</body>
+</html>
