@@ -97,22 +97,34 @@
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
     </nav>
   </div>
-  <div class="flex items-center gap-10">
+  <div class="flex items-center gap-4 md:gap-10">
     <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
       <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
     </a>
-    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+    <a :href="discoveryHref" id="nav-cta-discovery" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
       Discovery Call
     </a>
+    <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+      <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+    </button>
   </div>
 </header>
+  <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+    <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+      <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+      <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+      <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
+    </nav>
+  </div>
 </div>
 <!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
     </div>
 
     <main style="view-transition-name: main-content;" class="flex-1">
       <!-- Hero Section -->
-      <section class="relative pt-48 pb-24 px-12 overflow-hidden">
+      <section class="relative pt-48 pb-24 px-4 md:px-12 overflow-hidden">
         <div class="hero-glow top-[-200px] left-[-200px]"></div>
         <div class="max-w-4xl mx-auto">
           <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-8">// Legal / Terms</p>
@@ -122,7 +134,7 @@
       </section>
 
       <!-- Content Sections -->
-      <section class="py-20 px-12">
+      <section class="py-16 md:py-20 px-4 md:px-12">
         <div class="max-w-4xl mx-auto space-y-12">
 
           <!-- Section 1: Acceptance of Terms -->
@@ -233,9 +245,9 @@
     <!-- Global Footer Component -->
     <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
 <div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }">
-<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+<footer class="border-t border-white/5 bg-black pt-16 pb-32 md:pt-32 md:pb-48 px-4 md:px-12">
    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-12 gap-16 mb-24">
+      <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
          <div class="col-span-12 lg:col-span-4">
             <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
                <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
