@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | OCD Records</title>
+  <meta name="view-transition" content="same-origin">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-dark { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      filter: blur(150px);
+      z-index: -1;
+      opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    @view-transition { navigation: auto; }
+    html { background-color: #000000; }
+    ::view-transition { background-color: #000000; }
+
+    ::view-transition-old(main-nav), ::view-transition-new(main-nav) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+
+    ::view-transition-old(main-content) { animation: 0.25s ease-out both fade-out; }
+    ::view-transition-new(main-content) { animation: 0.25s ease-in 0.1s both fade-in; }
+
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    ::view-transition-old(root), ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+  </style>
+  <style>sd-component { display: block; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative flex flex-col">
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <div style="view-transition-name: main-nav;" class="z-50">
+      <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+<div v-scope="{ ...{&quot;activeItem&quot;:&quot;&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-16">
+    <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+        <span class="text-black font-black text-sm font-display">OCD</span>
+      </div>
+      <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+    </a>
+    <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref"
+         id="nav-link-catalog"
+         class="transition-colors duration-300"
+         :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+      <a :href="artistsHref"
+         id="nav-link-artists"
+         class="transition-colors duration-300"
+         :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+      <a :href="studiosHref"
+         id="nav-link-studios"
+         class="transition-colors duration-300"
+         :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+      <a :href="licensingHref"
+         id="nav-link-licensing"
+         class="transition-colors duration-300"
+         :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-10">
+    <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
+      <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+    </a>
+    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+      Discovery Call
+    </a>
+  </div>
+</header>
+</div>
+<!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+    </div>
+
+    <main style="view-transition-name: main-content;" class="flex-1">
+      <!-- Hero Section -->
+      <section class="relative pt-48 pb-24 px-12 overflow-hidden">
+        <div class="hero-glow top-[-200px] right-[-200px]"></div>
+        <div class="max-w-4xl mx-auto">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-8">// Legal / Privacy</p>
+          <h1 class="font-display text-[clamp(48px,8vw,100px)] font-black leading-[0.85] uppercase tracking-tighter mb-8">Privacy Policy</h1>
+          <p class="font-mono text-[11px] uppercase tracking-[0.4em] text-white/30">Last Updated: January 1, 2025</p>
+        </div>
+      </section>
+
+      <!-- Content Sections -->
+      <section class="py-20 px-12">
+        <div class="max-w-4xl mx-auto space-y-12">
+
+          <!-- Section 1: Data Collection -->
+          <div class="glass p-10 space-y-6">
+            <div class="flex items-center gap-4 mb-2">
+              <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.4em]">01</span>
+              <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h2 class="font-display text-3xl font-black uppercase tracking-tight">Data Collection</h2>
+            <div class="space-y-4 text-white/60 text-sm leading-relaxed font-light">
+              <p>OCD Records collects information you provide directly when you interact with our platform. This includes your name, email address, and any other contact details you submit through our forms, newsletter subscriptions, or demo submission portal.</p>
+              <p>We also automatically collect certain technical data when you visit our website, including your IP address, browser type, device information, and browsing behavior through cookies and similar tracking technologies. This data helps us understand how visitors engage with our content and improve our services.</p>
+              <p>When you stream or purchase music through our platform, we may collect transaction-related data, including payment information processed securely through our third-party payment providers.</p>
+            </div>
+          </div>
+
+          <!-- Section 2: How We Use Your Data -->
+          <div class="glass p-10 space-y-6">
+            <div class="flex items-center gap-4 mb-2">
+              <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.4em]">02</span>
+              <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h2 class="font-display text-3xl font-black uppercase tracking-tight">How We Use Your Data</h2>
+            <div class="space-y-4 text-white/60 text-sm leading-relaxed font-light">
+              <p>We use the information we collect to operate, maintain, and improve our platform and services. Specifically, your data enables us to:</p>
+              <ul class="list-none space-y-3 pl-4">
+                <li class="flex items-start gap-3">
+                  <span class="text-red-600 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>Process demo submissions and communicate with artists about potential collaborations</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-600 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>Send newsletter updates about new releases, artist announcements, and label events</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-600 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>Process licensing inquiries and manage synchronization agreements</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-600 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>Analyze usage patterns to enhance user experience and content delivery</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-red-600 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>Comply with applicable legal obligations and protect our rights</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Section 3: Third-Party Services -->
+          <div class="glass p-10 space-y-6">
+            <div class="flex items-center gap-4 mb-2">
+              <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.4em]">03</span>
+              <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h2 class="font-display text-3xl font-black uppercase tracking-tight">Third-Party Services</h2>
+            <div class="space-y-4 text-white/60 text-sm leading-relaxed font-light">
+              <p>OCD Records integrates with select third-party services to deliver our platform. These include analytics providers, payment processors, email service providers, and content delivery networks. Each third-party service operates under its own privacy policy and we encourage you to review their terms.</p>
+              <p>We do not sell your personal information to third parties. We may share data with service providers who assist us in operating our platform, but only to the extent necessary for them to perform their services on our behalf.</p>
+              <p>Our website may contain links to external sites, including streaming platforms and social media channels. We are not responsible for the privacy practices of these external services.</p>
+            </div>
+          </div>
+
+          <!-- Section 4: Your Rights -->
+          <div class="glass p-10 space-y-6">
+            <div class="flex items-center gap-4 mb-2">
+              <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.4em]">04</span>
+              <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h2 class="font-display text-3xl font-black uppercase tracking-tight">Your Rights</h2>
+            <div class="space-y-4 text-white/60 text-sm leading-relaxed font-light">
+              <p>Depending on your jurisdiction, you may have certain rights regarding your personal data. These rights may include:</p>
+              <ul class="list-none space-y-3 pl-4">
+                <li class="flex items-start gap-3">
+                  <span class="text-cyan-400 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>The right to access the personal data we hold about you</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-cyan-400 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>The right to request correction of inaccurate or incomplete data</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-cyan-400 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>The right to request deletion of your personal data</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-cyan-400 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>The right to withdraw consent for data processing at any time</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-cyan-400 mt-1.5"><iconify-icon icon="lucide:chevron-right" class="text-xs"></iconify-icon></span>
+                  <span>The right to data portability where technically feasible</span>
+                </li>
+              </ul>
+              <p>To exercise any of these rights, please contact us using the information provided below. We will respond to your request within 30 days.</p>
+            </div>
+          </div>
+
+          <!-- Section 5: Contact -->
+          <div class="glass p-10 space-y-6">
+            <div class="flex items-center gap-4 mb-2">
+              <span class="font-mono text-[10px] text-red-600 uppercase tracking-[0.4em]">05</span>
+              <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+            <h2 class="font-display text-3xl font-black uppercase tracking-tight">Contact</h2>
+            <div class="space-y-4 text-white/60 text-sm leading-relaxed font-light">
+              <p>If you have questions about this Privacy Policy or wish to exercise your data rights, please reach out to our data protection team:</p>
+              <div class="glass p-6 space-y-3 mt-4">
+                <p class="font-mono text-[11px] text-white/80 uppercase tracking-[0.2em]">OCD Records - Data Protection</p>
+                <p class="font-mono text-[11px] text-white/40 uppercase tracking-[0.2em]">Email: privacy@ocdrecords.com</p>
+                <p class="font-mono text-[11px] text-white/40 uppercase tracking-[0.2em]">Response Time: 30 Business Days</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Global Footer Component -->
+    <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }">
+<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+   <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-12 gap-16 mb-24">
+         <div class="col-span-12 lg:col-span-4">
+            <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
+               <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+               </div>
+               <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+            </a>
+            <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+               The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+            </p>
+            <div class="flex gap-8">
+               <a :href="instagramHref" id="social-ig" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+               <a :href="twitterHref" id="social-tw" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+               <a :href="youtubeHref" id="social-yt" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+               <a :href="soundcloudHref" id="social-sc" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+            </div>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="releasesHref" id="footer-nav-catalog" class="hover:text-red-600 transition-colors">Releases</a></li>
+               <li><a :href="artistsHref" id="footer-nav-artists" class="hover:text-red-600 transition-colors">Artists</a></li>
+               <li><a :href="licensingHref" id="footer-nav-licensing" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="submissionsHref" id="footer-nav-submissions" class="hover:text-red-600 transition-colors">Submissions</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="equipmentHref" id="footer-nav-equipment" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+               <li><a :href="bookingHref" id="footer-nav-booking" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+               <li><a :href="engineersHref" id="footer-nav-engineers" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-12 lg:col-span-4 space-y-10">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+            <form @submit.prevent="$emit('subscribe', { email: $event.target.querySelector('input').value })" class="flex flex-col gap-4">
+               <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+               <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+            </form>
+         </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+         <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">&copy; 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+         <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+            <a :href="privacyHref" id="legal-privacy" class="hover:text-white transition-colors">Privacy</a>
+            <a :href="termsHref" id="legal-terms" class="hover:text-white transition-colors">Terms</a>
+            <a :href="cookiesHref" id="legal-cookies" class="hover:text-white transition-colors">Cookies</a>
+         </div>
+      </div>
+   </div>
+</footer>
+</div>
+<!-- /component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+
+  </div>
+</body>
+</html>
