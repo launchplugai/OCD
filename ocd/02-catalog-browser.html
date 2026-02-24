@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalog Browser | OCD Records</title>
+  <meta name="view-transition" content="same-origin">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="prefetch" href="https://p.superdesign.dev/draft/365c84d4-9c9f-491f-a57a-5c304156a53c" as="document">
+  <link rel="prefetch" href="https://p.superdesign.dev/draft/aee5741f-337d-47bf-a574-5096d3bae3de" as="document">
+  <link rel="prefetch" href="https://p.superdesign.dev/draft/b341a4f0-b91a-4b9c-b94e-348ff57d2045" as="document">
+  <link rel="prefetch" href="https://p.superdesign.dev/draft/852ea4f1-9314-4aaf-b298-f9d89820a268" as="document">
+  <link rel="prefetch" href="https://p.superdesign.dev/draft/0d88bbdb-a293-4ec1-9558-37c52be8540a" as="document">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-dark { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+    
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    @view-transition { navigation: auto; }
+    ::view-transition { background-color: #000000; }
+
+    ::view-transition-old(main-nav), ::view-transition-new(main-nav),
+    ::view-transition-old(audio-player), ::view-transition-new(audio-player) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+
+    ::view-transition-old(main-content) { animation: 0.25s ease-out both fade-out; }
+    ::view-transition-new(main-content) { animation: 0.25s ease-in 0.1s both fade-in; }
+
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    ::view-transition-old(root), ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .card-glow-red:hover { box-shadow: 0 0 30px rgba(220, 38, 38, 0.2); }
+    .card-glow-blue:hover { box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
+  </style>
+  <style>sd-component { display: block; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative flex flex-col">
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <div style="view-transition-name: main-nav;" class="z-50">
+      <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+<div v-scope="{ ...{&quot;activeItem&quot;:&quot;catalog&quot;,&quot;homeHref&quot;:&quot;https://p.superdesign.dev/draft/365c84d4-9c9f-491f-a57a-5c304156a53c&quot;,&quot;catalogHref&quot;:&quot;https://p.superdesign.dev/draft/aee5741f-337d-47bf-a574-5096d3bae3de&quot;,&quot;artistsHref&quot;:&quot;https://p.superdesign.dev/draft/852ea4f1-9314-4aaf-b298-f9d89820a268&quot;,&quot;studiosHref&quot;:&quot;#studios&quot;,&quot;licensingHref&quot;:&quot;#licensing&quot;,&quot;searchHref&quot;:&quot;#search&quot;,&quot;discoveryHref&quot;:&quot;#discovery&quot;}, $emit() {} }">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-16">
+    <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+        <span class="text-black font-black text-sm font-display">OCD</span>
+      </div>
+      <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+    </a>
+    <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" 
+         id="nav-link-catalog" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+      <a :href="artistsHref" 
+         id="nav-link-artists" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+      <a :href="studiosHref" 
+         id="nav-link-studios" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+      <a :href="licensingHref" 
+         id="nav-link-licensing" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-10">
+    <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
+      <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+    </a>
+    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+      Discovery Call
+    </a>
+  </div>
+</header>
+</div>
+<!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+    </div>
+
+    <main style="view-transition-name: main-content;" class="flex-1 pt-24 pb-40 px-6 lg:px-12 max-w-[1600px] mx-auto w-full">
+      <div class="flex flex-col lg:flex-row gap-12">
+        
+        <!-- Sidebar Filter -->
+        <aside class="w-full lg:w-72 space-y-10 shrink-0">
+          <div class="space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 italic">// SEARCH_QUERY</p>
+            <div class="relative">
+              <input type="text" placeholder="FIND FREQUENCY..." class="w-full bg-zinc-900/50 border border-white/10 px-4 py-3 text-sm font-mono focus:outline-none focus:border-red-600 transition-colors placeholder:text-white/20">
+              <iconify-icon icon="lucide:search" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/20"></iconify-icon>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 italic">// CATEGORY</p>
+            <nav class="flex flex-col gap-2">
+              <a href="#" id="filter-genre-all" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-red-600 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-red-600">All Releases</span>
+                <span class="font-mono text-[10px] text-white/20">[124]</span>
+              </a>
+              <a href="#" id="filter-genre-techno" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white">Dark Techno</span>
+                <span class="font-mono text-[10px] text-white/20">[42]</span>
+              </a>
+              <a href="#" id="filter-genre-ambient" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white">Ambient Ghost</span>
+                <span class="font-mono text-[10px] text-white/20">[18]</span>
+              </a>
+              <a href="#" id="filter-genre-cinematic" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white">Cinematic</span>
+                <span class="font-mono text-[10px] text-white/20">[31]</span>
+              </a>
+              <a href="#" id="filter-genre-industrial" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white">Industrial</span>
+                <span class="font-mono text-[10px] text-white/20">[24]</span>
+              </a>
+              <a href="#" id="filter-genre-glitch" class="group flex justify-between items-center py-2 border-b border-white/5 hover:border-white/20 transition-colors">
+                <span class="text-xs font-bold uppercase tracking-widest text-white/60 group-hover:text-white">Glitch Architecture</span>
+                <span class="font-mono text-[10px] text-white/20">[9]</span>
+              </a>
+            </nav>
+          </div>
+
+          <div class="space-y-6">
+            <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30 italic">// ARTIST_ROSTER</p>
+            <div class="flex flex-wrap gap-2">
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Neural Ghost</button>
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Cobalt Void</button>
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Static Pulse</button>
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Lithium Soul</button>
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Vortex</button>
+              <button class="px-3 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:border-cyan-400 hover:text-cyan-400 transition-colors">Xenon</button>
+            </div>
+          </div>
+
+          <div class="space-y-6 pt-4">
+             <div class="glass p-6 space-y-4">
+                <h6 class="text-xs font-bold uppercase tracking-widest text-white/60">Filter By Year</h6>
+                <input type="range" class="w-full accent-red-600">
+                <div class="flex justify-between font-mono text-[10px] text-white/40">
+                  <span>2018</span>
+                  <span>2024</span>
+                </div>
+             </div>
+          </div>
+        </aside>
+
+        <!-- Main Content Grid -->
+        <div class="flex-1">
+          <!-- Header / Sorting -->
+          <div class="flex flex-col sm:flex-row justify-between items-end mb-12 gap-6">
+            <div>
+              <h1 class="font-display text-5xl font-black uppercase tracking-tighter">Full Catalog</h1>
+              <p class="font-mono text-[10px] uppercase text-white/30 mt-2">Displaying 1-20 of 124 curated artifacts</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono text-[10px] uppercase text-white/20">Sort_By:</span>
+              <select class="bg-transparent border-b border-white/20 font-mono text-[10px] uppercase py-1 focus:outline-none focus:border-red-600 cursor-pointer">
+                <option class="bg-black">Latest First</option>
+                <option class="bg-black">Oldest First</option>
+                <option class="bg-black">A-Z</option>
+                <option class="bg-black">Most Streamed</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
+            
+            <!-- Item 1 -->
+            <a href="https://p.superdesign.dev/draft/b341a4f0-b91a-4b9c-b94e-348ff57d2045" id="release-1" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=800" alt="Entropy 001" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></iconify-icon>
+                  </div>
+                  <div class="absolute top-4 left-4">
+                    <span class="bg-red-600 text-[8px] font-black uppercase px-2 py-0.5 tracking-tighter">New Release</span>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Entropy 001</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Neural Ghost</p>
+               </div>
+            </a>
+
+            <!-- Item 2 -->
+            <a href="https://p.superdesign.dev/draft/b341a4f0-b91a-4b9c-b94e-348ff57d2045" id="release-2" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?auto=format&fit=crop&q=80&w=800" alt="Static Void" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Static Void</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Static Pulse</p>
+               </div>
+            </a>
+
+            <!-- Item 3 -->
+            <a href="https://p.superdesign.dev/draft/b341a4f0-b91a-4b9c-b94e-348ff57d2045" id="release-3" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800" alt="Resonance" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Resonance</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Cobalt Void</p>
+               </div>
+            </a>
+
+            <!-- Item 4 -->
+            <a href="#" id="release-4" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1459749411177-042180ce673b?auto=format&fit=crop&q=80&w=800" alt="Lithium Path" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Lithium Path</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Lithium Soul</p>
+               </div>
+            </a>
+
+            <!-- Item 5-20 (Generated Placeholders for Catalog Bulk) -->
+            <a href="#" id="release-5" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800" alt="Artifact A" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Dark Matter</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Vortex</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-6" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=800" alt="Artifact B" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Neon Dusk</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Xenon</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-7" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&q=80&w=800" alt="Artifact C" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Pulse Width</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Neural Ghost</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-8" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1496293455970-f8581aae0e3c?auto=format&fit=crop&q=80&w=800" alt="Artifact D" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Signal Decay</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Static Pulse</p>
+               </div>
+            </a>
+
+            <!-- 9-20 Repetition for grid density -->
+            <a href="#" id="release-9" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1557683311-eac922347aa1?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Obsidian Flow</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Lithium Soul</p>
+               </div>
+            </a>
+            
+            <a href="#" id="release-10" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1453733190371-0a9bedd82893?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Binary Sun</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Vortex</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-11" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Ghost Circuit</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Neural Ghost</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-12" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Velvet Void</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Cobalt Void</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-13" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1514525253361-b874853a738d?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Titanium Heart</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Static Pulse</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-14" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Lunar Echo</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Xenon</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-15" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Synthetic Rain</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Vortex</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-16" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1487180144351-b846557df691?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Deep Ocean</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Cobalt Void</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-17" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Static Garden</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Lithium Soul</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-18" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1526218626217-dc65a29bb444?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Prism Shell</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Xenon</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-19" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-red transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1614149162883-504ce4d13909?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-red-500 transition-colors leading-tight">Neural Link</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Neural Ghost</p>
+               </div>
+            </a>
+
+            <a href="#" id="release-20" class="group space-y-4 block">
+               <div class="aspect-square glass-dark overflow-hidden relative card-glow-blue transition-all duration-500">
+                  <img src="https://images.unsplash.com/photo-1621619856624-42fd193a0661?auto=format&fit=crop&q=80&w=800" alt="Grid Fill" class="w-full h-full object-cover grayscale group-hover:grayscale-0">
+                  <div class="absolute inset-0 bg-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                     <iconify-icon icon="lucide:play-circle" class="text-6xl text-white"></iconify-icon>
+                  </div>
+               </div>
+               <div class="px-1">
+                  <h4 class="font-display font-black uppercase text-base group-hover:text-cyan-400 transition-colors leading-tight">Core Echo</h4>
+                  <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest mt-1">Static Pulse</p>
+               </div>
+            </a>
+
+          </div>
+
+          <!-- Pagination -->
+          <div class="mt-20 flex justify-center items-center gap-8">
+            <button class="font-mono text-[10px] uppercase text-white/20 hover:text-red-600 transition-colors">Prev_Set</button>
+            <div class="flex gap-4 font-mono text-xs">
+              <span class="text-red-600 font-black">01</span>
+              <span class="text-white/40 hover:text-white cursor-pointer">02</span>
+              <span class="text-white/40 hover:text-white cursor-pointer">03</span>
+              <span class="text-white/20">...</span>
+              <span class="text-white/40 hover:text-white cursor-pointer">06</span>
+            </div>
+            <button class="font-mono text-[10px] uppercase text-white/20 hover:text-red-600 transition-colors">Next_Set</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Audio Player Component -->
+    <div style="view-transition-name: audio-player;" class="fixed bottom-0 left-0 right-0 z-50 bg-black">
+      <!-- component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+<div v-scope="{ ...{&quot;isPlaying&quot;:true,&quot;currentTime&quot;:&quot;01:42&quot;,&quot;totalTime&quot;:&quot;04:12&quot;,&quot;progressPercent&quot;:38,&quot;volumePercent&quot;:75}, $emit() {} }">
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-5xl z-50"><div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5 flex items-center gap-12 shadow-[0_30px_60px_rgba(0,0,0,0.8)]"><div class="flex items-center gap-5 min-w-[240px]"><div @click="$emit('maximize')" class="w-14 h-14 bg-zinc-800 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200" alt="Now Playing"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><iconify-icon icon="lucide:maximize-2" class="text-white"></iconify-icon></div></div><div class="overflow-hidden"><h6 class="text-sm font-bold uppercase tracking-tight truncate">Entropy 001</h6><p class="text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] truncate mt-1">Neural Ghost</p></div></div><div class="flex items-center gap-8"><iconify-icon @click="$emit('previous')" icon="lucide:skip-back" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon><div @click="$emit('togglePlay')" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 hover:text-white transition-all"><iconify-icon v-if="isPlaying" icon="lucide:pause" class="text-2xl"></iconify-icon><iconify-icon v-else icon="lucide:play" class="text-2xl"></iconify-icon></div><iconify-icon @click="$emit('next')" icon="lucide:skip-forward" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon></div><div class="flex-1 flex flex-col gap-2"><div class="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]"><span>{{ currentTime }}</span><span>{{ totalTime }}</span></div><div @click="$emit('seek')" class="h-1 bg-white/10 relative rounded-full overflow-hidden cursor-pointer"><div class="absolute left-0 top-0 h-full bg-red-600" :style="{ width: progressPercent + '%' }"></div></div></div><div class="flex items-center gap-8"><div class="flex items-center gap-3"><iconify-icon icon="lucide:volume-2" class="text-white/30 text-lg"></iconify-icon><div class="w-20 h-1 bg-white/10 relative rounded-full"><div class="absolute left-0 top-0 h-full bg-white/40" :style="{ width: volumePercent + '%' }"></div></div></div><iconify-icon @click="$emit('togglePlaylist')" icon="lucide:list-music" class="text-white/30 hover:text-white cursor-pointer transition-colors text-xl"></iconify-icon></div></div></div>
+</div>
+<!-- /component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+    </div>
+
+    <!-- Footer Component -->
+    <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;https://p.superdesign.dev/draft/365c84d4-9c9f-491f-a57a-5c304156a53c&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;https://p.superdesign.dev/draft/aee5741f-337d-47bf-a574-5096d3bae3de&quot;,&quot;artistsHref&quot;:&quot;https://p.superdesign.dev/draft/852ea4f1-9314-4aaf-b298-f9d89820a268&quot;,&quot;licensingHref&quot;:&quot;#licensing&quot;,&quot;submissionsHref&quot;:&quot;#submissions&quot;,&quot;equipmentHref&quot;:&quot;#equipment&quot;,&quot;bookingHref&quot;:&quot;#booking&quot;,&quot;engineersHref&quot;:&quot;#engineers&quot;,&quot;privacyHref&quot;:&quot;#privacy&quot;,&quot;termsHref&quot;:&quot;#terms&quot;,&quot;cookiesHref&quot;:&quot;#cookies&quot;}, $emit() {} }">
+<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+   <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-12 gap-16 mb-24">
+         <div class="col-span-12 lg:col-span-4">
+            <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
+               <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+               </div>
+               <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+            </a>
+            <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+               The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+            </p>
+            <div class="flex gap-8">
+               <a :href="instagramHref" id="social-ig" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+               <a :href="twitterHref" id="social-tw" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+               <a :href="youtubeHref" id="social-yt" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+               <a :href="soundcloudHref" id="social-sc" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+            </div>
+         </div>
+         
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="releasesHref" id="footer-nav-catalog" class="hover:text-red-600 transition-colors">Releases</a></li>
+               <li><a :href="artistsHref" id="footer-nav-artists" class="hover:text-red-600 transition-colors">Artists</a></li>
+               <li><a :href="licensingHref" id="footer-nav-licensing" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="submissionsHref" id="footer-nav-submissions" class="hover:text-red-600 transition-colors">Submissions</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="equipmentHref" id="footer-nav-equipment" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+               <li><a :href="bookingHref" id="footer-nav-booking" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+               <li><a :href="engineersHref" id="footer-nav-engineers" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-12 lg:col-span-4 space-y-10">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+            <form @submit.prevent="$emit('subscribe', { email: $event.target.querySelector('input').value })" class="flex flex-col gap-4">
+               <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+               <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+            </form>
+         </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+         <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+         <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+            <a :href="privacyHref" id="legal-privacy" class="hover:text-white transition-colors">Privacy</a>
+            <a :href="termsHref" id="legal-terms" class="hover:text-white transition-colors">Terms</a>
+            <a :href="cookiesHref" id="legal-cookies" class="hover:text-white transition-colors">Cookies</a>
+         </div>
+      </div>
+   </div>
+</footer>
+</div>
+<!-- /component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+
+  </div>
+</body>
+</html>
