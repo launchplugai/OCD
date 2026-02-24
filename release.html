@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entropy 001 | Neural Ghost | OCD Records</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <meta name="view-transition" content="same-origin">
+  <link rel="prefetch" href="index.html" as="document">
+  <link rel="prefetch" href="catalog.html" as="document">
+  <link rel="prefetch" href="release.html" as="document">
+  <link rel="prefetch" href="artist.html" as="document">
+  <link rel="prefetch" href="submit.html" as="document">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .glass-dark { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute; width: 800px; height: 800px; border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    html { background-color: #000000; }
+    @view-transition { navigation: auto; }
+    ::view-transition { background-color: #000000; }
+
+    ::view-transition-old(main-nav), ::view-transition-new(main-nav),
+    ::view-transition-old(footer), ::view-transition-new(footer),
+    ::view-transition-old(audio-player), ::view-transition-new(audio-player) {
+        animation: none; mix-blend-mode: normal;
+    }
+
+    ::view-transition-old(main-content) { animation: 0.25s ease-out both fade-out; }
+    ::view-transition-new(main-content) { animation: 0.25s ease-in 0.1s both fade-in; }
+
+    @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+    .waveform-bar {
+      transition: height 0.3s ease-in-out;
+    }
+    
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+  <style>sd-component { display: block; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+    
+    <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+<div v-scope="{ ...{&quot;activeItem&quot;:&quot;catalog&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;#artists&quot;,&quot;studiosHref&quot;:&quot;#studios&quot;,&quot;licensingHref&quot;:&quot;#licensing&quot;,&quot;searchHref&quot;:&quot;#search&quot;,&quot;discoveryHref&quot;:&quot;#discovery&quot;}, $emit() {} }" style="view-transition-name: main-nav">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-12 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-16">
+    <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+        <span class="text-black font-black text-sm font-display">OCD</span>
+      </div>
+      <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+    </a>
+    <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" 
+         id="nav-link-catalog" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+      <a :href="artistsHref" 
+         id="nav-link-artists" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+      <a :href="studiosHref" 
+         id="nav-link-studios" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+      <a :href="licensingHref" 
+         id="nav-link-licensing" 
+         class="transition-colors duration-300" 
+         :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-10">
+    <a :href="searchHref" id="nav-link-search" class="text-white/40 hover:text-white transition-colors">
+      <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+    </a>
+    <a :href="discoveryHref" id="nav-cta-discovery" class="text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+      Discovery Call
+    </a>
+  </div>
+</header>
+</div>
+<!-- /component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+
+    <main style="view-transition-name: main-content" class="pt-24">
+      <!-- Release Cover Section -->
+      <section class="relative px-6 md:px-12 py-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <!-- Left: Artwork (16:9 representation via aspect ratio container) -->
+            <div class="lg:col-span-8">
+              <div class="aspect-video w-full overflow-hidden relative group cursor-pointer border border-white/10">
+                <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=1600" alt="Entropy 001 Cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2s]">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+                <div class="absolute bottom-8 left-8 flex items-center gap-4">
+                  <button class="w-20 h-20 bg-white text-black flex items-center justify-center rounded-full hover:bg-red-600 hover:text-white transition-all transform hover:scale-110">
+                    <iconify-icon icon="lucide:play" class="text-3xl ml-1"></iconify-icon>
+                  </button>
+                  <div>
+                    <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/60 mb-1">Release Archive</p>
+                    <h1 class="font-display font-black text-5xl uppercase tracking-tighter">Entropy 001</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Artist & Purchase Info -->
+            <div class="lg:col-span-4 space-y-8">
+              <div class="space-y-2">
+                <a href="artist.html" id="link-artist-profile" class="group flex items-center gap-4">
+                   <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=100" alt="Neural Ghost" class="w-12 h-12 rounded-full grayscale group-hover:grayscale-0 transition-all">
+                   <div>
+                      <p class="font-mono text-[10px] text-red-500 uppercase tracking-widest">Artist</p>
+                      <h3 class="font-display font-black text-2xl uppercase tracking-tight group-hover:text-red-500 transition-colors">Neural Ghost</h3>
+                   </div>
+                </a>
+              </div>
+
+              <div class="p-8 glass-dark space-y-6">
+                <div class="flex justify-between items-center">
+                  <span class="font-mono text-[10px] uppercase text-white/40 tracking-widest">Purchase Options</span>
+                  <span class="text-2xl font-display font-black">$12.00</span>
+                </div>
+                <div class="space-y-3">
+                  <a href="#checkout" id="btn-buy-now" class="block w-full py-4 bg-white text-black font-display font-black uppercase text-center tracking-widest hover:bg-red-600 hover:text-white transition-all">
+                    Buy Entire Digital Release
+                  </a>
+                  <button class="block w-full py-4 border border-white/20 font-display font-black uppercase text-center tracking-widest hover:bg-white/5 transition-all">
+                    Add to Library
+                  </button>
+                </div>
+                <div class="flex justify-between items-center pt-4 border-t border-white/10">
+                  <div class="flex gap-4">
+                    <button class="text-white/40 hover:text-white transition-colors"><iconify-icon icon="lucide:share-2" class="text-xl"></iconify-icon></button>
+                    <button class="text-white/40 hover:text-white transition-colors"><iconify-icon icon="lucide:heart" class="text-xl"></iconify-icon></button>
+                  </div>
+                  <span class="font-mono text-[9px] text-white/20 uppercase">Format: WAV / FLAC / 320</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Waveform Visualization -->
+      <section class="px-6 md:px-12 py-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="glass p-6 rounded-sm relative group">
+            <div class="flex items-end gap-[2px] h-32 w-full opacity-40">
+               <!-- Waveform bars -->
+               <div class="waveform-bar bg-white flex-1 h-[20%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[70%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[50%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[90%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[30%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[60%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[80%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[70%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[50%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[30%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[60%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[90%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[20%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[60%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[50%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[80%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[30%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[70%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[90%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[20%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[60%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[50%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[80%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[30%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[70%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[90%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[20%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[60%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[50%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[80%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[30%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[70%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[40%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[90%]"></div>
+               <div class="waveform-bar bg-white flex-1 h-[20%]"></div>
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <p class="font-mono text-[10px] uppercase tracking-[0.4em] bg-black px-4 py-2">Preview Loaded: 14% Buffered</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tracklist Section -->
+      <section class="px-6 md:px-12 py-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div class="lg:col-span-8">
+            <div class="mb-8 border-b border-white/10 pb-4 flex justify-between items-end">
+              <h2 class="font-display text-4xl font-black uppercase tracking-tighter">Tracklist</h2>
+              <span class="font-mono text-[10px] text-white/40 uppercase tracking-widest">4 Tracks / 18:32</span>
+            </div>
+            
+            <div class="space-y-1">
+              <!-- Track 1 -->
+              <div class="group flex items-center gap-6 p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                <span class="font-mono text-xs text-white/30 group-hover:text-red-500">01</span>
+                <button class="text-white/20 group-hover:text-white">
+                   <iconify-icon icon="lucide:play" class="text-xl"></iconify-icon>
+                </button>
+                <div class="flex-1">
+                   <h4 class="font-bold uppercase tracking-tight">Obsidian Flow</h4>
+                   <p class="text-[10px] font-mono text-white/40 uppercase">Original Mix</p>
+                </div>
+                <span class="font-mono text-xs text-white/30">05:12</span>
+                <button class="opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
+                   <iconify-icon icon="lucide:plus" class="text-xl"></iconify-icon>
+                </button>
+              </div>
+              <!-- Track 2 -->
+              <div class="group flex items-center gap-6 p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                <span class="font-mono text-xs text-white/30 group-hover:text-red-500">02</span>
+                <button class="text-white/20 group-hover:text-white">
+                   <iconify-icon icon="lucide:play" class="text-xl"></iconify-icon>
+                </button>
+                <div class="flex-1">
+                   <h4 class="font-bold uppercase tracking-tight">Kinetic Stillness</h4>
+                   <p class="text-[10px] font-mono text-white/40 uppercase">Neuro-Edit</p>
+                </div>
+                <span class="font-mono text-xs text-white/30">04:45</span>
+                <button class="opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
+                   <iconify-icon icon="lucide:plus" class="text-xl"></iconify-icon>
+                </button>
+              </div>
+              <!-- Track 3 -->
+              <div class="group flex items-center gap-6 p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                <span class="font-mono text-xs text-white/30 group-hover:text-red-500">03</span>
+                <button class="text-white/20 group-hover:text-white">
+                   <iconify-icon icon="lucide:play" class="text-xl"></iconify-icon>
+                </button>
+                <div class="flex-1">
+                   <h4 class="font-bold uppercase tracking-tight">Void Pulse</h4>
+                   <p class="text-[10px] font-mono text-white/40 uppercase">Original Mix</p>
+                </div>
+                <span class="font-mono text-xs text-white/30">04:22</span>
+                <button class="opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
+                   <iconify-icon icon="lucide:plus" class="text-xl"></iconify-icon>
+                </button>
+              </div>
+              <!-- Track 4 -->
+              <div class="group flex items-center gap-6 p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                <span class="font-mono text-xs text-white/30 group-hover:text-red-500">04</span>
+                <button class="text-white/20 group-hover:text-white">
+                   <iconify-icon icon="lucide:play" class="text-xl"></iconify-icon>
+                </button>
+                <div class="flex-1">
+                   <h4 class="font-bold uppercase tracking-tight">Neural Decay</h4>
+                   <p class="text-[10px] font-mono text-white/40 uppercase">Ambient Reprise</p>
+                </div>
+                <span class="font-mono text-xs text-white/30">04:13</span>
+                <button class="opacity-0 group-hover:opacity-100 text-white/40 hover:text-white transition-all">
+                   <iconify-icon icon="lucide:plus" class="text-xl"></iconify-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 space-y-10">
+            <div>
+              <h5 class="font-mono text-[10px] text-white/40 uppercase tracking-[0.4em] mb-4">Release Credits</h5>
+              <ul class="space-y-4 text-xs">
+                <li class="flex justify-between border-b border-white/5 pb-2">
+                  <span class="text-white/40 uppercase">Produced by</span>
+                  <span>N. Ghost</span>
+                </li>
+                <li class="flex justify-between border-b border-white/5 pb-2">
+                  <span class="text-white/40 uppercase">Mastered at</span>
+                  <span>OCD Studio B</span>
+                </li>
+                <li class="flex justify-between border-b border-white/5 pb-2">
+                  <span class="text-white/40 uppercase">Release Date</span>
+                  <span>24.05.2024</span>
+                </li>
+                <li class="flex justify-between border-b border-white/5 pb-2">
+                  <span class="text-white/40 uppercase">Catalog ID</span>
+                  <span class="font-mono">OCD-088-EN</span>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+               <h5 class="font-mono text-[10px] text-white/40 uppercase tracking-[0.4em] mb-4">Liner Notes</h5>
+               <p class="text-xs text-white/60 leading-relaxed italic">
+                  "Entropy 001 explores the degradation of digital memory. Each sound source was passed through analog tape loops until the original harmonic structure began to collapse, revealing the ghosts in the machine."
+               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Related Releases -->
+      <section class="py-24 bg-zinc-950">
+         <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-16 flex items-center gap-8">
+               <h2 class="font-display text-5xl font-black uppercase tracking-tighter">Neural Ghost Archive</h2>
+               <div class="h-px flex-1 bg-white/10"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10">
+               <!-- Release Card 1 -->
+               <div class="group space-y-6">
+                  <div class="aspect-square glass-dark overflow-hidden relative cursor-pointer">
+                     <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=800" alt="Aftermath" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <iconify-icon icon="lucide:play-circle" class="text-7xl text-white"></iconify-icon>
+                     </div>
+                  </div>
+                  <div class="space-y-1 px-1">
+                     <h5 class="font-display font-black uppercase text-lg leading-tight group-hover:text-red-500 transition-colors">Aftermath</h5>
+                     <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Neural Ghost</p>
+                        <p class="text-[10px] font-mono text-white/20 uppercase tracking-widest">2023</p>
+                     </div>
+                  </div>
+               </div>
+               
+               <!-- Release Card 2 -->
+               <div class="group space-y-6">
+                  <div class="aspect-square glass-dark overflow-hidden relative cursor-pointer">
+                     <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?auto=format&fit=crop&q=80&w=800" alt="Sub-Atomic" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <iconify-icon icon="lucide:play-circle" class="text-7xl text-white"></iconify-icon>
+                     </div>
+                  </div>
+                  <div class="space-y-1 px-1">
+                     <h5 class="font-display font-black uppercase text-lg leading-tight group-hover:text-red-500 transition-colors">Sub-Atomic</h5>
+                     <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Neural Ghost</p>
+                        <p class="text-[10px] font-mono text-white/20 uppercase tracking-widest">2022</p>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Release Card 3 -->
+               <div class="group space-y-6">
+                  <div class="aspect-square glass-dark overflow-hidden relative cursor-pointer">
+                     <img src="https://images.unsplash.com/photo-1619983081563-430f63602796?auto=format&fit=crop&q=80&w=800" alt="Signal Loss" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <iconify-icon icon="lucide:play-circle" class="text-7xl text-white"></iconify-icon>
+                     </div>
+                  </div>
+                  <div class="space-y-1 px-1">
+                     <h5 class="font-display font-black uppercase text-lg leading-tight group-hover:text-red-500 transition-colors">Signal Loss</h5>
+                     <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Neural Ghost</p>
+                        <p class="text-[10px] font-mono text-white/20 uppercase tracking-widest">2022</p>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Release Card 4 -->
+               <div class="group space-y-6">
+                  <div class="aspect-square glass-dark overflow-hidden relative cursor-pointer">
+                     <img src="https://images.unsplash.com/photo-1459749411177-042180ce673b?auto=format&fit=crop&q=80&w=800" alt="Ghost Theory" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                     <div class="absolute inset-0 bg-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                        <iconify-icon icon="lucide:play-circle" class="text-7xl text-white"></iconify-icon>
+                     </div>
+                  </div>
+                  <div class="space-y-1 px-1">
+                     <h5 class="font-display font-black uppercase text-lg leading-tight group-hover:text-red-500 transition-colors">Ghost Theory</h5>
+                     <div class="flex justify-between items-center">
+                        <p class="text-[10px] font-mono text-white/40 uppercase tracking-widest">Neural Ghost</p>
+                        <p class="text-[10px] font-mono text-white/20 uppercase tracking-widest">2021</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+    </main>
+
+    <!-- component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+<div v-scope="{ ...{&quot;isPlaying&quot;:true,&quot;currentTime&quot;:&quot;00:42&quot;,&quot;totalTime&quot;:&quot;05:12&quot;,&quot;progressPercent&quot;:14,&quot;volumePercent&quot;:75}, $emit() {} }" style="view-transition-name: audio-player">
+<div class="fixed bottom-10 left-1/2 -translate-x-1/2 w-[calc(100%-48px)] max-w-5xl z-50"><div class="bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5 flex items-center gap-12 shadow-[0_30px_60px_rgba(0,0,0,0.8)]"><div class="flex items-center gap-5 min-w-[240px]"><div @click="$emit('maximize')" class="w-14 h-14 bg-zinc-800 rounded-lg overflow-hidden flex-shrink-0 relative group cursor-pointer"><img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=200" alt="Now Playing"><div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><iconify-icon icon="lucide:maximize-2" class="text-white"></iconify-icon></div></div><div class="overflow-hidden"><h6 class="text-sm font-bold uppercase tracking-tight truncate">Entropy 001</h6><p class="text-[10px] text-red-500 font-mono uppercase tracking-[0.2em] truncate mt-1">Neural Ghost</p></div></div><div class="flex items-center gap-8"><iconify-icon @click="$emit('previous')" icon="lucide:skip-back" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon><div @click="$emit('togglePlay')" class="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center cursor-pointer hover:bg-red-600 hover:text-white transition-all"><iconify-icon v-if="isPlaying" icon="lucide:pause" class="text-2xl"></iconify-icon><iconify-icon v-else icon="lucide:play" class="text-2xl"></iconify-icon></div><iconify-icon @click="$emit('next')" icon="lucide:skip-forward" class="text-white/30 hover:text-white cursor-pointer transition-colors"></iconify-icon></div><div class="flex-1 flex flex-col gap-2"><div class="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.2em]"><span>{{ currentTime }}</span><span>{{ totalTime }}</span></div><div @click="$emit('seek')" class="h-1 bg-white/10 relative rounded-full overflow-hidden cursor-pointer"><div class="absolute left-0 top-0 h-full bg-red-600" :style="{ width: progressPercent + '%' }"></div></div></div><div class="flex items-center gap-8"><div class="flex items-center gap-3"><iconify-icon icon="lucide:volume-2" class="text-white/30 text-lg"></iconify-icon><div class="w-20 h-1 bg-white/10 relative rounded-full"><div class="absolute left-0 top-0 h-full bg-white/40" :style="{ width: volumePercent + '%' }"></div></div></div><iconify-icon @click="$emit('togglePlaylist')" icon="lucide:list-music" class="text-white/30 hover:text-white cursor-pointer transition-colors text-xl"></iconify-icon></div></div></div>
+</div>
+<!-- /component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
+
+    <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;#artists&quot;,&quot;licensingHref&quot;:&quot;#licensing&quot;,&quot;submissionsHref&quot;:&quot;#submissions&quot;,&quot;equipmentHref&quot;:&quot;#equipment&quot;,&quot;bookingHref&quot;:&quot;#booking&quot;,&quot;engineersHref&quot;:&quot;#engineers&quot;,&quot;privacyHref&quot;:&quot;#privacy&quot;,&quot;termsHref&quot;:&quot;#terms&quot;,&quot;cookiesHref&quot;:&quot;#cookies&quot;}, $emit() {} }" style="view-transition-name: footer">
+<footer class="border-t border-white/5 bg-black pt-32 pb-48 px-12">
+   <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-12 gap-16 mb-24">
+         <div class="col-span-12 lg:col-span-4">
+            <a :href="homeHref" id="footer-brand-logo" class="flex items-center gap-3 mb-10">
+               <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+               </div>
+               <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+            </a>
+            <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+               The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+            </p>
+            <div class="flex gap-8">
+               <a :href="instagramHref" id="social-ig" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+               <a :href="twitterHref" id="social-tw" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+               <a :href="youtubeHref" id="social-yt" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+               <a :href="soundcloudHref" id="social-sc" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+            </div>
+         </div>
+         
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="releasesHref" id="footer-nav-catalog" class="hover:text-red-600 transition-colors">Releases</a></li>
+               <li><a :href="artistsHref" id="footer-nav-artists" class="hover:text-red-600 transition-colors">Artists</a></li>
+               <li><a :href="licensingHref" id="footer-nav-licensing" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="submissionsHref" id="footer-nav-submissions" class="hover:text-red-600 transition-colors">Submissions</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="equipmentHref" id="footer-nav-equipment" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+               <li><a :href="bookingHref" id="footer-nav-booking" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+               <li><a :href="engineersHref" id="footer-nav-engineers" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-12 lg:col-span-4 space-y-10">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+            <form @submit.prevent="$emit('subscribe', { email: $event.target.querySelector('input').value })" class="flex flex-col gap-4">
+               <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+               <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+            </form>
+         </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+         <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+         <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+            <a :href="privacyHref" id="legal-privacy" class="hover:text-white transition-colors">Privacy</a>
+            <a :href="termsHref" id="legal-terms" class="hover:text-white transition-colors">Terms</a>
+            <a :href="cookiesHref" id="legal-cookies" class="hover:text-white transition-colors">Cookies</a>
+         </div>
+      </div>
+   </div>
+</footer>
+</div>
+<!-- /component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
+  </div>
+</body>
+</html>
