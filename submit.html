@@ -85,7 +85,7 @@
     <div class="noise-bg"></div>
     
     <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
-<div v-scope="{ mobileOpen: false, ...{&quot;activeItem&quot;:&quot;artists&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
+<div v-scope="{ mobileOpen: false, ...{&quot;activeItem&quot;:&quot;artists&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;vaultHref&quot;:&quot;vault.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
 <header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
   <div class="flex items-center gap-4 lg:gap-16">
     <a :href="homeHref" id="nav-brand-logo" class="flex items-center gap-3 group">
@@ -111,6 +111,10 @@
          id="nav-link-licensing" 
          class="transition-colors duration-300" 
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+      <a :href="vaultHref"
+         id="nav-link-vault"
+         class="transition-colors duration-300"
+         :class="activeItem === 'vault' ? 'text-white' : 'text-white/40 hover:text-white'">Vault</a>
     </nav>
   </div>
   <div class="flex items-center gap-4 md:gap-10">
@@ -131,6 +135,7 @@
       <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
       <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
       <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a :href="vaultHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Vault</a>
       <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
     </nav>
   </div>
@@ -264,7 +269,7 @@
 <!-- /component: AudioPlayer (a08b9ed7-ef2b-4211-b59b-5157ded68742) -->
 
     <!-- component: Footer (f57b271a-593d-4ce0-88ed-f540557f6786) -->
-<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }" style="view-transition-name: main-footer">
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;vaultHref&quot;:&quot;vault.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }" style="view-transition-name: main-footer">
 <footer class="border-t border-white/5 bg-black pt-16 pb-32 md:pt-32 md:pb-48 px-4 md:px-12">
    <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
@@ -292,6 +297,7 @@
                <li><a :href="releasesHref" id="footer-nav-catalog" class="hover:text-red-600 transition-colors">Releases</a></li>
                <li><a :href="artistsHref" id="footer-nav-artists" class="hover:text-red-600 transition-colors">Artists</a></li>
                <li><a :href="licensingHref" id="footer-nav-licensing" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="vaultHref" id="footer-nav-vault" class="hover:text-red-600 transition-colors">Vault</a></li>
                <li><a :href="submissionsHref" id="footer-nav-submissions" class="hover:text-red-600 transition-colors">Submissions</a></li>
             </ul>
          </div>
