@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sync Protocol Vault | OCD Records</title>
+  <meta name="description" content="The proprietary 7-stage framework that turns bedroom producers into sync-licensable artists — no label gatekeeper required.">
+  <meta name="view-transition" content="same-origin">
+  <link rel="prefetch" href="index.html" as="document">
+  <link rel="prefetch" href="licensing.html" as="document">
+  <link rel="prefetch" href="submit.html" as="document">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .noise-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      filter: blur(150px);
+      z-index: -1;
+      opacity: 0.18;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    .reveal-anim { animation: reveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+    @keyframes reveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .stage-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.5em;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .price-card { transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), border-color 0.4s; }
+    .price-card:hover { transform: translateY(-6px); border-color: rgba(220, 38, 38, 0.6); }
+
+    @view-transition { navigation: auto; }
+    html { background-color: #000000; }
+    ::view-transition { background-color: #000000; }
+    main { view-transition-name: main-content; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <div v-scope="{ mobileOpen: false, activeItem: 'protocol', homeHref: 'index.html', catalogHref: 'catalog.html', artistsHref: 'artist.html', studiosHref: 'studios.html', licensingHref: 'licensing.html', protocolHref: 'sync-protocol.html', searchHref: 'catalog.html', discoveryHref: 'submit.html' }">
+      <header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+        <div class="flex items-center gap-4 lg:gap-16">
+          <a :href="homeHref" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+              <span class="text-black font-black text-sm font-display">OCD</span>
+            </div>
+            <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+          </a>
+          <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+            <a :href="catalogHref" class="transition-colors duration-300" :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+            <a :href="artistsHref" class="transition-colors duration-300" :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+            <a :href="studiosHref" class="transition-colors duration-300" :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+            <a :href="licensingHref" class="transition-colors duration-300" :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+            <a :href="protocolHref" class="transition-colors duration-300" :class="activeItem === 'protocol' ? 'text-white' : 'text-white/40 hover:text-white'">Protocol</a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-4 md:gap-10">
+          <a :href="searchHref" class="text-white/40 hover:text-white transition-colors">
+            <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+          </a>
+          <a href="#enroll" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+            Enroll Now
+          </a>
+        </div>
+        <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+          <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+        </button>
+      </header>
+      <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+        <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+          <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+          <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+          <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+          <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+          <a :href="protocolHref" @click="mobileOpen = false" class="text-white py-4 border-b border-white/5">Protocol</a>
+          <a href="#enroll" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Enroll Now</a>
+        </nav>
+      </div>
+    </div>
+
+    <main>
+      <!-- Hero -->
+      <section class="relative min-h-screen flex flex-col justify-center px-4 md:px-12 pt-32 pb-24">
+        <div class="hero-glow top-[-200px] left-[-200px]"></div>
+        <div class="hero-glow bottom-[-100px] right-[-300px]" style="background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);"></div>
+
+        <div class="max-w-7xl mx-auto w-full reveal-anim">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-8">Productize Yourself / Vault 001</p>
+          <h1 class="font-display text-[clamp(50px,9vw,128px)] font-black leading-[0.84] uppercase tracking-tighter mb-12">
+            The Sync<br/>
+            Protocol<br/>
+            <span class="text-red-600">Vault</span>
+          </h1>
+          <div class="flex flex-col md:flex-row gap-16 items-start mb-16">
+            <p class="max-w-2xl text-xl text-white/70 leading-relaxed font-light">
+              The Sync Protocol turns bedroom producers into sync-licensable artists — no label gatekeeper required. The same seven-stage framework OCD Records uses to prepare every release for film, TV, and brand placement, distilled into a vault you can run at 3am.
+            </p>
+            <div class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40 space-y-3 min-w-[220px]">
+              <div class="flex justify-between gap-6"><span>Status</span><span class="text-cyan-400">Open Enrollment</span></div>
+              <div class="flex justify-between gap-6"><span>Delivery</span><span class="text-white/70">Instant</span></div>
+              <div class="flex justify-between gap-6"><span>Format</span><span class="text-white/70">Self-paced</span></div>
+              <div class="flex justify-between gap-6"><span>Cohort</span><span class="text-white/70">None — Async</span></div>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#enroll" class="px-12 py-5 bg-white text-black font-display font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-1 text-sm">
+              Enroll — $497
+            </a>
+            <a href="#protocol" class="px-12 py-5 border border-white/20 text-white font-display font-black uppercase tracking-widest hover:bg-white/10 transition-all transform hover:-translate-y-1 text-sm">
+              View The Protocol
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Transformation -->
+      <section class="px-4 md:px-12 py-24 md:py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-12">// 01 The Transformation</p>
+          <div class="grid md:grid-cols-2 gap-16 md:gap-24">
+            <div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-6">Before</p>
+              <h3 class="font-display text-3xl md:text-4xl font-black uppercase tracking-tight mb-8 text-white/60">Obsessed.<br/>Unsigned.<br/>Unplaced.</h3>
+              <ul class="space-y-3 text-white/50 text-sm font-light leading-relaxed">
+                <li>— Finished tracks sit on a hard drive</li>
+                <li>— Sync libraries reject "almost there" stems</li>
+                <li>— No metadata, no ISRC, no one-sheet</li>
+                <li>— Pitches die in supervisor inboxes</li>
+                <li>— Label gatekeepers ghost your demo</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-cyan-400 mb-6">After</p>
+              <h3 class="font-display text-3xl md:text-4xl font-black uppercase tracking-tight mb-8">Sync-Ready.<br/>Self-Released.<br/>Placement-Bound.</h3>
+              <ul class="space-y-3 text-white/80 text-sm font-light leading-relaxed">
+                <li>— Every track ships with broadcast-spec deliverables</li>
+                <li>— Stems audited against the OCD reference suite</li>
+                <li>— Metadata, splits, and clearances filed correctly</li>
+                <li>— Pitch decks built to supervisor templates</li>
+                <li>— Your catalog walks into rooms you can't yet</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Protocol -->
+      <section id="protocol" class="px-4 md:px-12 py-24 md:py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-6">// 02 The Sync Protocol</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tight mb-16 max-w-4xl">Seven stages. Zero compromise. Every track shipped to label spec.</h2>
+
+          <div class="space-y-px">
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">01 / SIGNAL</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Source Lock</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">Pre-production audit. We isolate the obsession — the single sonic fingerprint a track must defend at every later stage. No fingerprint, no protocol.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">02 / FRAME</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Arrangement Audit</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">The 30/60/90-second test. Tracks are restructured against supervisor scan-points: hook before 0:30, breakdown before 0:60, climax before 1:30.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">03 / RENDER</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Stems Discipline</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">The OCD eight-stem export standard — drums, bass, harmonic, lead, pad, FX, vocal lead, vocal bed. Naming, headroom, sample rate, and bit depth fixed to spec.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">04 / MASTER</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Loudness Targets</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">-14 LUFS streaming, -23 LUFS broadcast, -1 dBTP ceiling. The reference master suite — three calibrated comparisons per genre — ships in the Vault.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">05 / META</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Identity Stack</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">ISRC, ISWC, PRO registration, writer splits, instrumental and vocal alt-mixes, BPM, key, mood tags. The metadata sheet template clears 80% of library intake forms unchanged.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">06 / PITCH</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">One-Sheet Engine</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">Supervisor-format one-sheets: hook description, reference cues, vibe tags, link tree, clearance status. Fill the template, export PDF, send.</p>
+            </div>
+            <div class="glass p-8 md:p-12 grid md:grid-cols-12 gap-6 md:gap-12 items-start">
+              <div class="md:col-span-2 stage-num">07 / LOCK</div>
+              <div class="md:col-span-3">
+                <h4 class="font-display text-2xl font-black uppercase tracking-tight mb-3">Frequency Rights</h4>
+              </div>
+              <p class="md:col-span-7 text-white/60 font-light leading-relaxed">License-agnostic contract scaffolds: non-exclusive sync, festival cue sheets, brand-spot terms. Built from the OCD Records licensing book.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What's Inside -->
+      <section class="px-4 md:px-12 py-24 md:py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-6">// 03 Vault Contents</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tight mb-16 max-w-4xl">What ships the moment you enroll.</h2>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:radio" class="text-3xl text-red-600 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Protocol Playbook</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">120-page PDF. Each of the seven stages with checklists, decision trees, and failure-mode patterns drawn from real OCD release sessions.</p>
+            </div>
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:layers" class="text-3xl text-red-600 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Reference Master Suite</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">12 calibrated reference masters across electronic, ambient, cinematic, and hybrid — for A/B testing your render against label-spec output.</p>
+            </div>
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:file-text" class="text-3xl text-red-600 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Metadata Sheet Template</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Spreadsheet pre-built for ISRC, splits, PRO, mood tags. Clears most library intake forms with no rework.</p>
+            </div>
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:layout-template" class="text-3xl text-cyan-400 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">One-Sheet Engine</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Figma + Google Docs templates. Drop your track, export the supervisor-format PDF in under 10 minutes.</p>
+            </div>
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:scale" class="text-3xl text-cyan-400 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Frequency Rights Contracts</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Three non-exclusive sync agreement scaffolds, plus festival cue-sheet and brand-spot rider — all attorney-reviewed.</p>
+            </div>
+            <div class="bg-black p-10">
+              <iconify-icon icon="lucide:check-circle" class="text-3xl text-cyan-400 mb-6"></iconify-icon>
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Self-Audit Scorecard</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">68-point pre-submission audit. If a track scores below 55, the Vault tells you exactly which stage failed and how to fix it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Irreplaceable -->
+      <section class="px-4 md:px-12 py-24 md:py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-16">
+          <div class="lg:col-span-5">
+            <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-6">// 04 Why It Can't Be Cloned</p>
+            <h2 class="font-display text-4xl md:text-5xl font-black uppercase tracking-tight">The Vault carries the label's signal — not a YouTube tutorial's.</h2>
+          </div>
+          <div class="lg:col-span-7 space-y-10">
+            <div class="border-l border-red-600 pl-8">
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Drawn from real OCD release sessions</h4>
+              <p class="text-white/60 font-light leading-relaxed">Every checklist is the residue of an actual catalog entry. The patterns are forensic, not theoretical.</p>
+            </div>
+            <div class="border-l border-cyan-400 pl-8">
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Reference masters, not screenshots</h4>
+              <p class="text-white/60 font-light leading-relaxed">Other courses show LUFS meters. The Vault hands you the masters and tells you which one to beat.</p>
+            </div>
+            <div class="border-l border-white/30 pl-8">
+              <h4 class="font-display text-xl font-black uppercase tracking-tight mb-3">Tied to a working licensing desk</h4>
+              <p class="text-white/60 font-light leading-relaxed">Every contract template is one OCD Records currently uses. Tracks that pass the audit are eligible to be submitted to the licensing roster.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing / Enroll -->
+      <section id="enroll" class="px-4 md:px-12 py-24 md:py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-6">// 05 Enrollment</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tight mb-16 max-w-4xl">One vault. Two ways in.</h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="price-card border border-white/10 p-10 md:p-14">
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/40 mb-6">Standard Access</p>
+              <h3 class="font-display text-5xl md:text-6xl font-black mb-2">$497</h3>
+              <p class="text-white/40 text-sm font-light mb-10">One-time. Lifetime vault access.</p>
+              <ul class="space-y-4 text-sm text-white/70 mb-12">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-0.5"></iconify-icon> All seven Protocol stages</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-0.5"></iconify-icon> Reference master suite + audit scorecard</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-0.5"></iconify-icon> All templates and contract scaffolds</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-0.5"></iconify-icon> Free updates as the Vault evolves</li>
+              </ul>
+              <a href="#" class="block w-full text-center px-8 py-5 bg-white text-black font-display font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all text-sm">
+                Enroll Now
+              </a>
+            </div>
+
+            <div class="price-card border border-cyan-400/40 p-10 md:p-14 relative">
+              <span class="absolute top-6 right-6 font-mono text-[9px] uppercase tracking-[0.4em] text-cyan-400 border border-cyan-400/40 px-3 py-1">Roster Track</span>
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-cyan-400 mb-6">Vault + Submission Priority</p>
+              <h3 class="font-display text-5xl md:text-6xl font-black mb-2">$997</h3>
+              <p class="text-white/40 text-sm font-light mb-10">One-time. Vault + priority demo review.</p>
+              <ul class="space-y-4 text-sm text-white/70 mb-12">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-0.5"></iconify-icon> Everything in Standard Access</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-0.5"></iconify-icon> Priority demo review — 72hr window</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-0.5"></iconify-icon> Written audit on one finished track</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-0.5"></iconify-icon> Sync-ready tracks pitched to OCD licensing</li>
+              </ul>
+              <a href="#" class="block w-full text-center px-8 py-5 border border-cyan-400/60 text-white font-display font-black uppercase tracking-widest hover:bg-cyan-400 hover:text-black transition-all text-sm">
+                Apply for Roster Track
+              </a>
+            </div>
+          </div>
+
+          <p class="text-white/30 text-xs font-mono uppercase tracking-[0.4em] mt-10 text-center">Instant delivery. 14-day refund if the audit doesn't surface at least one shipping blocker on your current track.</p>
+        </div>
+      </section>
+
+      <!-- Distribution Note (Internal) -->
+      <section class="px-4 md:px-12 py-20 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-white/30 mb-6">// Closing Frequency</p>
+          <p class="font-display text-2xl md:text-3xl font-black uppercase tracking-tight leading-tight">"The Sync Protocol turns bedroom producers into sync-licensable artists — no label gatekeeper required."</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div v-scope="{ homeHref: 'index.html', releasesHref: 'catalog.html', artistsHref: 'artist.html', licensingHref: 'licensing.html', submissionsHref: 'submit.html', protocolHref: 'sync-protocol.html', equipmentHref: 'studios.html#equipment', bookingHref: 'studios.html#booking', engineersHref: 'studios.html#engineers', privacyHref: 'privacy.html', termsHref: 'terms.html', cookiesHref: 'cookies.html' }">
+      <footer class="border-t border-white/5 bg-black pt-16 pb-32 md:pt-32 md:pb-48 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
+            <div class="col-span-12 lg:col-span-4">
+              <a :href="homeHref" class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+                </div>
+                <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+              </a>
+              <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+                The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+              </p>
+            </div>
+
+            <div class="col-span-6 lg:col-span-2 space-y-8">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+              <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+                <li><a :href="releasesHref" class="hover:text-red-600 transition-colors">Releases</a></li>
+                <li><a :href="artistsHref" class="hover:text-red-600 transition-colors">Artists</a></li>
+                <li><a :href="licensingHref" class="hover:text-red-600 transition-colors">Licensing</a></li>
+                <li><a :href="submissionsHref" class="hover:text-red-600 transition-colors">Submissions</a></li>
+                <li><a :href="protocolHref" class="hover:text-red-600 transition-colors">Sync Protocol</a></li>
+              </ul>
+            </div>
+
+            <div class="col-span-6 lg:col-span-2 space-y-8">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+              <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+                <li><a :href="equipmentHref" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+                <li><a :href="bookingHref" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+                <li><a :href="engineersHref" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+              </ul>
+            </div>
+
+            <div class="col-span-12 lg:col-span-4 space-y-10">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+              <form @submit.prevent class="flex flex-col gap-4">
+                <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+                <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+            <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+            <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+              <a :href="privacyHref" class="hover:text-white transition-colors">Privacy</a>
+              <a :href="termsHref" class="hover:text-white transition-colors">Terms</a>
+              <a :href="cookiesHref" class="hover:text-white transition-colors">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
