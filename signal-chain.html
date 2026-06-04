@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Chain OS | OCD Records</title>
+  <meta name="description" content="The Signal Chain OS — the catalog-grade production system OCD Records uses to turn raw bedroom drafts into sync-licensable artifacts. Instant download. No studio booking required.">
+  <meta name="view-transition" content="same-origin">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <link rel="prefetch" href="index.html" as="document">
+  <link rel="prefetch" href="catalog.html" as="document">
+  <link rel="prefetch" href="studios.html" as="document">
+  <link rel="prefetch" href="licensing.html" as="document">
+  <link rel="prefetch" href="submit.html" as="document">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute; width: 800px; height: 800px; border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    .stage-line {
+      background-image: linear-gradient(to right, rgba(220,38,38,0.6) 50%, transparent 50%);
+      background-size: 12px 1px;
+      background-repeat: repeat-x;
+    }
+
+    .tier-featured {
+      box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.4), 0 30px 60px rgba(220, 38, 38, 0.08);
+    }
+
+    details[open] summary .chev { transform: rotate(45deg); }
+    summary { list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+
+    @view-transition { navigation: auto; }
+    html { background-color: #000000; }
+    ::view-transition { background-color: #000000; }
+    main { view-transition-name: main-content; }
+  </style>
+  <style>sd-component { display: block; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+
+    <!-- component: NavigationHeader (2a8dc0ea-9b2e-4c45-82a5-65b189f05d69) -->
+<div v-scope="{ mobileOpen: false, ...{&quot;activeItem&quot;:&quot;signalchain&quot;,&quot;homeHref&quot;:&quot;index.html&quot;,&quot;catalogHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;studiosHref&quot;:&quot;studios.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;searchHref&quot;:&quot;catalog.html&quot;,&quot;discoveryHref&quot;:&quot;submit.html&quot;}, $emit() {} }" style="view-transition-name: main-nav">
+<header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+  <div class="flex items-center gap-4 lg:gap-16">
+    <a :href="homeHref" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+        <span class="text-black font-black text-sm font-display">OCD</span>
+      </div>
+      <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+    </a>
+    <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" class="text-white/40 hover:text-white transition-colors duration-300">Catalog</a>
+      <a :href="artistsHref" class="text-white/40 hover:text-white transition-colors duration-300">Artists</a>
+      <a :href="studiosHref" class="text-white/40 hover:text-white transition-colors duration-300">Studios</a>
+      <a :href="licensingHref" class="text-white/40 hover:text-white transition-colors duration-300">Licensing</a>
+      <a href="signal-chain.html" class="text-white transition-colors duration-300">Signal Chain</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-4 md:gap-10">
+    <a :href="searchHref" class="text-white/40 hover:text-white transition-colors">
+      <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+    </a>
+    <a href="#tiers" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-red-600 text-white hover:bg-white hover:text-black transition-all duration-500">
+      Acquire Chain
+    </a>
+  </div>
+  <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+    <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+  </button>
+</header>
+  <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+    <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+      <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+      <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+      <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+      <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a href="signal-chain.html" @click="mobileOpen = false" class="text-white py-4 border-b border-white/5">Signal Chain</a>
+      <a href="#tiers" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-red-600 text-white hover:bg-white hover:text-black transition-all">Acquire Chain</a>
+    </nav>
+  </div>
+</div>
+<!-- /component: NavigationHeader -->
+
+    <main class="pt-32 md:pt-40 pb-32">
+      <!-- HERO -->
+      <section class="relative px-4 md:px-12">
+        <div class="hero-glow top-0 left-1/2 -translate-x-1/2 opacity-30"></div>
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
+            <div class="lg:col-span-8 space-y-8">
+              <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600">// Productized Mastering Protocol</p>
+              <h1 class="font-display text-[12vw] lg:text-[8.5rem] font-black uppercase leading-[0.82] tracking-tighter">
+                The Signal<br>Chain<sup class="text-2xl md:text-4xl align-top text-red-600">OS</sup>
+              </h1>
+              <p class="text-xl md:text-2xl text-white/60 leading-relaxed max-w-2xl font-light">
+                The five-stage system OCD Records runs every catalog release through — distilled into a downloadable mixing and mastering OS. Ships at 3am. No studio booking. No engineer in the loop.
+              </p>
+              <div class="flex flex-wrap gap-6 pt-4">
+                <a href="#tiers" class="px-10 py-5 bg-red-600 text-white font-display font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-black transition-all">
+                  Acquire The Chain
+                </a>
+                <a href="#stages" class="px-10 py-5 border border-white/20 text-white font-display font-black uppercase tracking-[0.3em] text-sm hover:border-red-600 hover:text-red-600 transition-all">
+                  See The 5 Stages
+                </a>
+              </div>
+            </div>
+            <div class="lg:col-span-4 space-y-6 glass p-8">
+              <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">// Receipt</p>
+              <div class="space-y-4 font-mono text-xs">
+                <div class="flex justify-between border-b border-white/5 pb-3"><span class="text-white/40">Delivery</span><span>Instant / Email</span></div>
+                <div class="flex justify-between border-b border-white/5 pb-3"><span class="text-white/40">Format</span><span>.als / .logicx / .flp</span></div>
+                <div class="flex justify-between border-b border-white/5 pb-3"><span class="text-white/40">Updates</span><span>Lifetime</span></div>
+                <div class="flex justify-between border-b border-white/5 pb-3"><span class="text-white/40">Refund Window</span><span>14 Days</span></div>
+                <div class="flex justify-between"><span class="text-white/40">Live Touch Required</span><span class="text-red-600">None</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY THIS EXISTS -->
+      <section class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div class="space-y-6">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// Why It Exists</p>
+            <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">Most demos fail the filter for the same three reasons.</h2>
+          </div>
+          <div class="space-y-8 text-white/60 leading-relaxed">
+            <p>We review every demo manually. Roughly 96% are rejected before the second listen — not for taste, but for fidelity. Wrong gain staging. Wide-stereo bus with no mono anchor. Loud, lifeless masters that translate to nothing past a phone speaker.</p>
+            <p>The Signal Chain is not a preset pack. It is the auditable, repeatable workflow our engineers run on every release. We turned it into a file you can open in your DAW tonight.</p>
+            <p class="text-white text-sm uppercase tracking-[0.3em] font-bold">If your track passes The Chain, it passes our submission filter. That is the contract.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 STAGES -->
+      <section id="stages" class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-20 space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// The Methodology</p>
+            <h2 class="font-display text-4xl md:text-7xl font-black uppercase tracking-tighter">The 5 Stages</h2>
+            <p class="text-white/40 max-w-2xl">Input → Sculpt → Sum → Master → Secure. Run a track through all five in order and it becomes a catalog-grade artifact.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-1">
+            <div class="glass p-8 space-y-6 hover:bg-white/[0.05] transition-colors">
+              <p class="font-mono text-xs text-red-600">01 / INPUT</p>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight">Capture</h3>
+              <p class="text-sm text-white/50 leading-relaxed">Gain staging template that locks every source at -18 dBFS RMS before any plugin loads. Eliminates the #1 cause of muddy bedroom mixes.</p>
+              <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">7 input chains</p>
+            </div>
+            <div class="glass p-8 space-y-6 hover:bg-white/[0.05] transition-colors">
+              <p class="font-mono text-xs text-red-600">02 / SCULPT</p>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight">Subtract</h3>
+              <p class="text-sm text-white/50 leading-relaxed">Surgical EQ and dynamics racks calibrated for synth-forward, low-end-heavy work. Every preset is subtractive first — additive only when required.</p>
+              <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">23 sculpt racks</p>
+            </div>
+            <div class="glass p-8 space-y-6 hover:bg-white/[0.05] transition-colors tier-featured">
+              <p class="font-mono text-xs text-red-600">03 / SUM</p>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight">Glue</h3>
+              <p class="text-sm text-white/50 leading-relaxed">Analog-summing emulation bus the OCD engineers built around the Prophet-5 and HDX signal path. Replaces hardware most producers cannot afford.</p>
+              <p class="font-mono text-[10px] text-red-600 uppercase tracking-widest">Proprietary bus</p>
+            </div>
+            <div class="glass p-8 space-y-6 hover:bg-white/[0.05] transition-colors">
+              <p class="font-mono text-xs text-red-600">04 / MASTER</p>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight">Translate</h3>
+              <p class="text-sm text-white/50 leading-relaxed">Berlin mastering chain — multiband, transient, dynamic EQ, true-peak limiter. Tuned for streaming targets and sync-grade dynamic range.</p>
+              <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">3 master chains</p>
+            </div>
+            <div class="glass p-8 space-y-6 hover:bg-white/[0.05] transition-colors">
+              <p class="font-mono text-xs text-red-600">05 / SECURE</p>
+              <h3 class="font-display text-2xl font-black uppercase tracking-tight">Audit</h3>
+              <p class="text-sm text-white/50 leading-relaxed">The 27-point Frequencies Secured QC checklist. The exact pass/fail audit OCD Records runs before a release is mastered for distribution.</p>
+              <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">27 checkpoints</p>
+            </div>
+          </div>
+
+          <div class="mt-8 stage-line h-px"></div>
+        </div>
+      </section>
+
+      <!-- WHAT'S INSIDE -->
+      <section class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+          <div class="lg:col-span-4 space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// Payload</p>
+            <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">What ships in the zip.</h2>
+            <p class="text-white/40 leading-relaxed">Every file mirrors the production workflow our staff engineers use on signed releases. Nothing watered down.</p>
+          </div>
+          <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-1">
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:layers" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">Master Template</h4>
+              <p class="text-sm text-white/40">Ableton 11+, Logic Pro 11, FL Studio 21 — pre-routed busses, summing path, master chain, reference loop.</p>
+            </div>
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:sliders" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">40 Chain Racks</h4>
+              <p class="text-sm text-white/40">Sculpt, sum, and master racks labelled by source — kick, sub, lead synth, pad, vocal, foley, stem bus.</p>
+            </div>
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:file-audio" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">12 Reference Stems</h4>
+              <p class="text-sm text-white/40">Stems pulled from the OCD catalog. Cleared for A/B reference inside your DAW. Not for redistribution.</p>
+            </div>
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:clipboard-check" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">Frequencies Secured Audit</h4>
+              <p class="text-sm text-white/40">The 27-point QC checklist, printable. Pass it and your track is structurally indistinguishable from a Neural Ghost release.</p>
+            </div>
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:video" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">Engineer Walkthroughs</h4>
+              <p class="text-sm text-white/40">90 minutes of screen-recorded, stage-by-stage runs through an unfinished track to a finished master.</p>
+            </div>
+            <div class="glass p-8 space-y-3">
+              <iconify-icon icon="lucide:badge-check" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display uppercase font-black tracking-tight">Submission Priority Token</h4>
+              <p class="text-sm text-white/40">One-time pass to the front of the OCD submission queue. Bypass the 14-day review window. Vault tier only.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TIERS -->
+      <section id="tiers" class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-7xl mx-auto">
+          <div class="mb-20 space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// Acquisition</p>
+            <h2 class="font-display text-4xl md:text-7xl font-black uppercase tracking-tighter">Select Your Tier</h2>
+            <p class="text-white/40 max-w-2xl">One-time payment. Lifetime updates. Instant download via email after checkout.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-1">
+            <!-- LITE -->
+            <div class="glass p-10 space-y-10 flex flex-col">
+              <div class="space-y-4">
+                <p class="font-mono text-[10px] text-white/40 uppercase tracking-[0.5em]">// 01 / Lite</p>
+                <h3 class="font-display text-4xl font-black uppercase tracking-tight">Input</h3>
+                <p class="text-white/40 text-sm">For producers shipping their first EP. The capture and sculpt stages only.</p>
+              </div>
+              <div class="space-y-2 border-y border-white/5 py-8">
+                <p class="font-display text-5xl font-black">$47</p>
+                <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">One-time / .zip</p>
+              </div>
+              <ul class="space-y-4 text-sm text-white/60 flex-1">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> Stage 01 & 02 templates</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 14 sculpt racks</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 3 reference stems</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> QC audit PDF</li>
+                <li class="flex gap-3 text-white/20"><iconify-icon icon="lucide:x" class="mt-1"></iconify-icon> No analog summing bus</li>
+                <li class="flex gap-3 text-white/20"><iconify-icon icon="lucide:x" class="mt-1"></iconify-icon> No walkthrough videos</li>
+              </ul>
+              <a href="#" data-tier="lite" class="block text-center py-5 border border-white/20 font-display font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-black transition-all">
+                Acquire Lite
+              </a>
+            </div>
+
+            <!-- STANDARD -->
+            <div class="glass-strong p-10 space-y-10 flex flex-col tier-featured relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white font-mono text-[10px] uppercase tracking-[0.4em] px-4 py-1">Most Acquired</div>
+              <div class="space-y-4">
+                <p class="font-mono text-[10px] text-red-600 uppercase tracking-[0.5em]">// 02 / Standard</p>
+                <h3 class="font-display text-4xl font-black uppercase tracking-tight">Signal Chain OS</h3>
+                <p class="text-white/40 text-sm">The full five-stage system. The one we recommend to every submission we reject.</p>
+              </div>
+              <div class="space-y-2 border-y border-white/5 py-8">
+                <p class="font-display text-5xl font-black">$147</p>
+                <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">One-time / .zip / Lifetime updates</p>
+              </div>
+              <ul class="space-y-4 text-sm text-white/70 flex-1">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> All five stages</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 40 chain racks</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> Analog summing bus</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 12 reference stems</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 27-point QC audit</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 mt-1"></iconify-icon> 90 min engineer walkthroughs</li>
+              </ul>
+              <a href="#" data-tier="standard" class="block text-center py-5 bg-red-600 text-white font-display font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-black transition-all">
+                Acquire Standard
+              </a>
+            </div>
+
+            <!-- VAULT -->
+            <div class="glass p-10 space-y-10 flex flex-col">
+              <div class="space-y-4">
+                <p class="font-mono text-[10px] text-cyan-400 uppercase tracking-[0.5em]">// 03 / Vault</p>
+                <h3 class="font-display text-4xl font-black uppercase tracking-tight">Vault</h3>
+                <p class="text-white/40 text-sm">Standard + everything we cannot legally release publicly. Capped at 50 per quarter.</p>
+              </div>
+              <div class="space-y-2 border-y border-white/5 py-8">
+                <p class="font-display text-5xl font-black">$497</p>
+                <p class="font-mono text-[10px] text-white/30 uppercase tracking-widest">One-time / Vault drop / Lifetime</p>
+              </div>
+              <ul class="space-y-4 text-sm text-white/60 flex-1">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Everything in Standard</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Unreleased Neural Ghost stems (8)</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Quarterly chain drops</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Submission priority token</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Async mastering feedback (1 track)</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 mt-1"></iconify-icon> Vault Slack channel</li>
+              </ul>
+              <a href="#" data-tier="vault" class="block text-center py-5 border border-cyan-400/50 text-cyan-400 font-display font-black uppercase tracking-[0.3em] text-sm hover:bg-cyan-400 hover:text-black transition-all">
+                Request Vault Access
+              </a>
+            </div>
+          </div>
+
+          <p class="text-center mt-12 font-mono text-[10px] text-white/30 uppercase tracking-[0.4em]">14-Day Refund / No Questions / Pass The Chain or Get Your Money Back</p>
+        </div>
+      </section>
+
+      <!-- POSITIONING / SOCIAL -->
+      <section class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-5xl mx-auto text-center space-y-12">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// Positioning</p>
+          <p class="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter leading-tight">
+            "OCD Records distilled three years of catalog-grade mixing into a downloadable Signal Chain. Bedroom producers run their tracks through it and ship sync-licensable artifacts — <span class="text-red-600">without ever booking a studio.</span>"
+          </p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-16 space-y-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 italic">// Knowledge Base</p>
+            <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">FAQ</h2>
+          </div>
+          <div class="space-y-1">
+            <details class="glass p-8 group">
+              <summary class="flex items-center justify-between cursor-pointer">
+                <h4 class="font-display uppercase font-black tracking-tight text-lg">Do I need the studio hardware to use this?</h4>
+                <span class="chev text-red-600 text-2xl transition-transform">+</span>
+              </summary>
+              <p class="mt-6 text-white/50 leading-relaxed">No. The summing bus is software emulation of the analog path our engineers use. The whole chain runs inside your DAW with stock and free plugins. A short compatibility list ships with the zip.</p>
+            </details>
+            <details class="glass p-8 group">
+              <summary class="flex items-center justify-between cursor-pointer">
+                <h4 class="font-display uppercase font-black tracking-tight text-lg">Will this make my track get signed?</h4>
+                <span class="chev text-red-600 text-2xl transition-transform">+</span>
+              </summary>
+              <p class="mt-6 text-white/50 leading-relaxed">It removes the technical reasons we reject demos. Taste, composition, and originality are still on you. What we promise is that you will not be rejected for fidelity.</p>
+            </details>
+            <details class="glass p-8 group">
+              <summary class="flex items-center justify-between cursor-pointer">
+                <h4 class="font-display uppercase font-black tracking-tight text-lg">Is there a community or do I get this alone?</h4>
+                <span class="chev text-red-600 text-2xl transition-transform">+</span>
+              </summary>
+              <p class="mt-6 text-white/50 leading-relaxed">Standard ships as a solo download. Vault tier includes the closed Slack where staff engineers post quarterly chain updates and review one track per buyer asynchronously.</p>
+            </details>
+            <details class="glass p-8 group">
+              <summary class="flex items-center justify-between cursor-pointer">
+                <h4 class="font-display uppercase font-black tracking-tight text-lg">What if I already booked the studio?</h4>
+                <span class="chev text-red-600 text-2xl transition-transform">+</span>
+              </summary>
+              <p class="mt-6 text-white/50 leading-relaxed">The Chain is the prep stage. Walk into a session with a track that already passes the QC audit and you cut your engineer hours roughly in half. Studio bookings happen <a href="studios.html" class="text-red-600 underline">here</a>.</p>
+            </details>
+            <details class="glass p-8 group">
+              <summary class="flex items-center justify-between cursor-pointer">
+                <h4 class="font-display uppercase font-black tracking-tight text-lg">Refund policy?</h4>
+                <span class="chev text-red-600 text-2xl transition-transform">+</span>
+              </summary>
+              <p class="mt-6 text-white/50 leading-relaxed">14 days, no questions. Reply to the delivery email. Vault tier is non-refundable once the priority token is redeemed.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA STRIP -->
+      <section class="px-4 md:px-12 mt-32 md:mt-48">
+        <div class="max-w-7xl mx-auto glass-strong p-12 md:p-20 text-center space-y-8 relative overflow-hidden">
+          <div class="hero-glow top-0 left-1/2 -translate-x-1/2 opacity-40"></div>
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-red-600 relative">// Initialize</p>
+          <h2 class="font-display text-4xl md:text-7xl font-black uppercase tracking-tighter relative">Stop submitting drafts.<br>Start shipping artifacts.</h2>
+          <a href="#tiers" class="inline-block px-12 py-6 bg-red-600 text-white font-display font-black uppercase tracking-[0.3em] text-sm hover:bg-white hover:text-black transition-all relative">
+            Acquire The Chain
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- component: Footer -->
+<div v-scope="{ ...{&quot;homeHref&quot;:&quot;index.html&quot;,&quot;instagramHref&quot;:&quot;#instagram&quot;,&quot;twitterHref&quot;:&quot;#twitter&quot;,&quot;youtubeHref&quot;:&quot;#youtube&quot;,&quot;soundcloudHref&quot;:&quot;#soundcloud&quot;,&quot;releasesHref&quot;:&quot;catalog.html&quot;,&quot;artistsHref&quot;:&quot;artist.html&quot;,&quot;licensingHref&quot;:&quot;licensing.html&quot;,&quot;submissionsHref&quot;:&quot;submit.html&quot;,&quot;signalChainHref&quot;:&quot;signal-chain.html&quot;,&quot;equipmentHref&quot;:&quot;studios.html#equipment&quot;,&quot;bookingHref&quot;:&quot;studios.html#booking&quot;,&quot;engineersHref&quot;:&quot;studios.html#engineers&quot;,&quot;privacyHref&quot;:&quot;privacy.html&quot;,&quot;termsHref&quot;:&quot;terms.html&quot;,&quot;cookiesHref&quot;:&quot;cookies.html&quot;}, $emit() {} }" style="view-transition-name: main-footer">
+<footer class="border-t border-white/5 bg-black pt-16 pb-32 md:pt-32 md:pb-48 px-4 md:px-12">
+   <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
+         <div class="col-span-12 lg:col-span-4">
+            <a :href="homeHref" class="flex items-center gap-3 mb-10">
+               <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+               </div>
+               <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+            </a>
+            <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+               The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+            </p>
+            <div class="flex gap-8">
+               <a :href="instagramHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+               <a :href="twitterHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+               <a :href="youtubeHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+               <a :href="soundcloudHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+            </div>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="releasesHref" class="hover:text-red-600 transition-colors">Releases</a></li>
+               <li><a :href="artistsHref" class="hover:text-red-600 transition-colors">Artists</a></li>
+               <li><a :href="licensingHref" class="hover:text-red-600 transition-colors">Licensing</a></li>
+               <li><a :href="submissionsHref" class="hover:text-red-600 transition-colors">Submissions</a></li>
+               <li><a :href="signalChainHref" class="hover:text-red-600 transition-colors">Signal Chain OS</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-6 lg:col-span-2 space-y-8">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+            <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+               <li><a :href="equipmentHref" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+               <li><a :href="bookingHref" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+               <li><a :href="engineersHref" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+            </ul>
+         </div>
+
+         <div class="col-span-12 lg:col-span-4 space-y-10">
+            <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+            <form @submit.prevent="$emit('subscribe', { email: $event.target.querySelector('input').value })" class="flex flex-col gap-4">
+               <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+               <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+            </form>
+         </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-center pt-24 border-t border-white/5 gap-8">
+         <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+         <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+            <a :href="privacyHref" class="hover:text-white transition-colors">Privacy</a>
+            <a :href="termsHref" class="hover:text-white transition-colors">Terms</a>
+            <a :href="cookiesHref" class="hover:text-white transition-colors">Cookies</a>
+         </div>
+      </div>
+   </div>
+</footer>
+</div>
+<!-- /component: Footer -->
+  </div>
+</body>
+</html>
