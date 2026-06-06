@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Sonic Architecture Vault | OCD Records</title>
+  <meta name="description" content="The OCD Method playbook A&Rs use to triage demos. Signature stems, mix templates, mastering chain, and the Demo Scorecard. Instant delivery.">
+  <meta name="view-transition" content="same-origin">
+  <link rel="prefetch" href="index.html" as="document">
+  <link rel="prefetch" href="catalog.html" as="document">
+  <link rel="prefetch" href="submit.html" as="document">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-dark {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .noise-bg {
+      position: fixed; inset: 0; z-index: 50; opacity: 0.03; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute; width: 800px; height: 800px; border-radius: 50%; filter: blur(150px); z-index: -1; opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    .reveal-anim { animation: reveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+    @keyframes reveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @view-transition { navigation: auto; }
+    html { background-color: #000000; }
+    ::view-transition { background-color: #000000; }
+    main { view-transition-name: main-content; }
+
+    .grid-lines {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .ticker {
+      animation: ticker 40s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .scorecard-row { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .scorecard-row:last-child { border-bottom: none; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.4.1/dist/petite-vue.iife.js" defer init></script>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <div v-scope="{ mobileOpen: false, activeItem: 'vault', homeHref: 'index.html', catalogHref: 'catalog.html', artistsHref: 'artist.html', studiosHref: 'studios.html', licensingHref: 'licensing.html', vaultHref: 'vault.html', searchHref: 'catalog.html', discoveryHref: 'submit.html' }" style="view-transition-name: main-nav">
+      <header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+        <div class="flex items-center gap-4 lg:gap-16">
+          <a :href="homeHref" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+              <span class="text-black font-black text-sm font-display">OCD</span>
+            </div>
+            <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+          </a>
+          <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+            <a :href="catalogHref" class="transition-colors duration-300" :class="activeItem === 'catalog' ? 'text-white' : 'text-white/40 hover:text-white'">Catalog</a>
+            <a :href="artistsHref" class="transition-colors duration-300" :class="activeItem === 'artists' ? 'text-white' : 'text-white/40 hover:text-white'">Artists</a>
+            <a :href="studiosHref" class="transition-colors duration-300" :class="activeItem === 'studios' ? 'text-white' : 'text-white/40 hover:text-white'">Studios</a>
+            <a :href="licensingHref" class="transition-colors duration-300" :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+            <a :href="vaultHref" class="transition-colors duration-300 flex items-center gap-2" :class="activeItem === 'vault' ? 'text-white' : 'text-white/40 hover:text-white'">
+              Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal">NEW</span>
+            </a>
+          </nav>
+        </div>
+        <div class="flex items-center gap-4 md:gap-10">
+          <a :href="searchHref" class="text-white/40 hover:text-white transition-colors">
+            <iconify-icon icon="lucide:search" class="text-xl"></iconify-icon>
+          </a>
+          <a href="#pricing" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+            Get the Vault
+          </a>
+        </div>
+        <button @click="mobileOpen = !mobileOpen" class="lg:hidden text-white ml-2">
+          <iconify-icon :icon="mobileOpen ? 'lucide:x' : 'lucide:menu'" class="text-2xl"></iconify-icon>
+        </button>
+      </header>
+      <div v-show="mobileOpen" class="fixed inset-0 top-[65px] z-30 bg-black/95 backdrop-blur-xl lg:hidden">
+        <nav class="flex flex-col gap-1 p-6 text-[11px] font-bold uppercase tracking-[0.4em]">
+          <a :href="catalogHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Catalog</a>
+          <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
+          <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
+          <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+          <a :href="vaultHref" @click="mobileOpen = false" class="text-white py-4 border-b border-white/5">Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal ml-2">NEW</span></a>
+          <a href="#pricing" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Get the Vault</a>
+        </nav>
+      </div>
+    </div>
+
+    <main class="pt-32 pb-32">
+      <!-- HERO -->
+      <section class="relative px-4 md:px-12">
+        <div class="hero-glow top-[-200px] left-[-200px]"></div>
+        <div class="hero-glow bottom-[-100px] right-[-300px]" style="background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);"></div>
+
+        <div class="max-w-7xl mx-auto w-full reveal-anim">
+          <div class="flex items-center gap-4 mb-8">
+            <span class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600">// Productized Methodology</span>
+            <span class="hidden md:inline-block text-[10px] font-mono uppercase tracking-[0.4em] text-white/30">Drop 001</span>
+          </div>
+
+          <h1 class="font-display text-[clamp(48px,9vw,128px)] font-black leading-[0.82] uppercase tracking-tighter mb-12">
+            The Sonic<br/>
+            Architecture<br/>
+            <span class="text-red-600">Vault</span>
+          </h1>
+
+          <div class="grid md:grid-cols-2 gap-12 items-end">
+            <p class="max-w-xl text-xl text-white/60 leading-relaxed font-light">
+              The exact <span class="text-white">OCD Method&trade;</span> A&amp;Rs at this label use to triage the demo inbox — extracted from our signed catalog and shipped as a downloadable kit. Stop guessing what passes. Score your track against the rubric before you send it.
+            </p>
+
+            <div class="flex flex-col gap-6">
+              <div class="flex items-baseline gap-4">
+                <span class="font-display text-6xl md:text-7xl font-black">$97</span>
+                <span class="text-white/30 line-through font-mono text-sm">$297</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-red-600">Launch Window</span>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="#pricing" class="px-10 py-5 bg-white text-black font-display font-black uppercase tracking-widest text-sm hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-1">
+                  Get Instant Access
+                </a>
+                <a href="#method" class="px-10 py-5 border border-white/20 text-white font-display font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all">
+                  See the Method
+                </a>
+              </div>
+              <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">Instant download · Lifetime updates · 30-day refund</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AGITATION -->
+      <section class="py-24 md:py-40 px-4 md:px-12">
+        <div class="max-w-6xl mx-auto">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-8">// 01 Why Your Last Demo Got Ghosted</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-16 max-w-4xl">
+            We open 2,400 demos a year.<br/>
+            We sign <span class="text-red-600">four</span>.
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass p-8 space-y-4">
+              <iconify-icon icon="lucide:volume-x" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-xl tracking-tighter">Loudness war</h4>
+              <p class="text-white/50 text-sm leading-relaxed font-light">Master is crushed to -6 LUFS with no dynamic range. Streams penalize you. We skip after 11 seconds.</p>
+            </div>
+            <div class="glass p-8 space-y-4">
+              <iconify-icon icon="lucide:fingerprint" class="text-3xl text-cyan-400"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-xl tracking-tighter">No signature</h4>
+              <p class="text-white/50 text-sm leading-relaxed font-light">It sounds like every preset pack on Splice. We can't tell who made it from a 30-second loop.</p>
+            </div>
+            <div class="glass p-8 space-y-4">
+              <iconify-icon icon="lucide:file-x" class="text-3xl text-red-600"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-xl tracking-tighter">No sync story</h4>
+              <p class="text-white/50 text-sm leading-relaxed font-light">The track has no narrative arc. Music supervisors need an emotional architecture, not a 4-bar loop on repeat.</p>
+            </div>
+          </div>
+
+          <p class="text-white/40 text-lg mt-16 max-w-3xl font-light leading-relaxed">
+            The producers we <span class="text-white">do</span> sign all run the same internal checklist before they hit send. We wrote it down.
+          </p>
+        </div>
+      </section>
+
+      <!-- THE OCD METHOD -->
+      <section id="method" class="py-24 md:py-40 px-4 md:px-12 bg-zinc-950 relative">
+        <div class="grid-lines absolute inset-0 opacity-40"></div>
+        <div class="max-w-7xl mx-auto relative">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-8">// 02 The Framework</p>
+          <h2 class="font-display text-5xl md:text-7xl font-black uppercase tracking-tighter mb-4">
+            The OCD Method<span class="text-red-600">&trade;</span>
+          </h2>
+          <p class="text-white/40 font-mono text-sm uppercase tracking-[0.3em] mb-20">Obsess &rarr; Curate &rarr; Deploy</p>
+
+          <div class="grid md:grid-cols-3 gap-0 md:gap-px bg-white/5">
+            <div class="bg-black p-10 md:p-14 space-y-8">
+              <div class="flex items-center justify-between">
+                <span class="font-display font-black text-7xl text-red-600">O</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">Stage 01</span>
+              </div>
+              <h3 class="font-display font-black text-3xl uppercase tracking-tighter">Obsess</h3>
+              <p class="text-white/50 text-sm leading-relaxed font-light">Develop a signature you can pick out of a blind A/B in 4 seconds. We give you the sonic-fingerprint worksheet and the reference-stack rubric the label uses on every signed artist.</p>
+              <ul class="text-xs space-y-3 font-mono uppercase tracking-[0.2em] text-white/40">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Sonic Fingerprint Worksheet</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Reference Stack Builder</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Sound-Design Rituals PDF</li>
+              </ul>
+            </div>
+
+            <div class="bg-black p-10 md:p-14 space-y-8">
+              <div class="flex items-center justify-between">
+                <span class="font-display font-black text-7xl text-cyan-400">C</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">Stage 02</span>
+              </div>
+              <h3 class="font-display font-black text-3xl uppercase tracking-tighter">Curate</h3>
+              <p class="text-white/50 text-sm leading-relaxed font-light">Mix and master to label-grade. The OCD bus chain, the LUFS/dynamics targets, and the A/B scoring rubric. No more guessing whether it's loud enough or muddy at the low-mids.</p>
+              <ul class="text-xs space-y-3 font-mono uppercase tracking-[0.2em] text-white/40">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 text-sm"></iconify-icon> OCD Bus Chain (Ableton/Logic/FL)</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 text-sm"></iconify-icon> Mastering Chain Presets</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-cyan-400 text-sm"></iconify-icon> Demo Scorecard (fillable PDF)</li>
+              </ul>
+            </div>
+
+            <div class="bg-black p-10 md:p-14 space-y-8">
+              <div class="flex items-center justify-between">
+                <span class="font-display font-black text-7xl text-red-600">D</span>
+                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">Stage 03</span>
+              </div>
+              <h3 class="font-display font-black text-3xl uppercase tracking-tighter">Deploy</h3>
+              <p class="text-white/50 text-sm leading-relaxed font-light">The sync-pitch one-pager, the label submission framing, and the cold-DM template that gets opened by supervisors. This is how a track stops being a file and starts being a placement.</p>
+              <ul class="text-xs space-y-3 font-mono uppercase tracking-[0.2em] text-white/40">
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Sync Pitch One-Pager</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Submission Framing Script</li>
+                <li class="flex gap-3"><iconify-icon icon="lucide:check" class="text-red-600 text-sm"></iconify-icon> Supervisor DM Template</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT'S INSIDE -->
+      <section class="py-24 md:py-40 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+            <div class="space-y-4">
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30">// 03 The Contents</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9]">What ships in the .zip</h2>
+            </div>
+            <p class="max-w-xs text-sm text-white/40 leading-relaxed">Six assets. Royalty-free. Yours forever. Updated as the catalog grows.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:book-open" class="text-4xl text-red-600 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">OCD Method&trade; Playbook</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">40-page PDF. The complete Obsess&rarr;Curate&rarr;Deploy framework, the rubric we score every demo against, and three case studies from signed artists.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">PDF · 40 pages</p>
+            </div>
+
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:layers" class="text-4xl text-cyan-400 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">Signature Stems Pack</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Royalty-free splits from Neural Ghost, Cobalt Void, and Static Pulse. 48-bit WAV. Use in your own productions, no sample-clearance headache.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">WAV · 1.2 GB</p>
+            </div>
+
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:sliders-horizontal" class="text-4xl text-red-600 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">Mix Templates</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Open the OCD bus chain in Ableton, Logic, or FL Studio. Aux routing, sidechain ducking, parallel saturation — already wired.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">ALS · LOGICX · FLP</p>
+            </div>
+
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:circuit-board" class="text-4xl text-cyan-400 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">Mastering Chain Presets</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">The "neural precision" chain — EQ, dynamics, saturation, limiting — calibrated to the LUFS / true-peak targets the label ships releases at.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">FXP · ADV · AUPRESET</p>
+            </div>
+
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:clipboard-check" class="text-4xl text-red-600 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">Demo Scorecard</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">Fillable PDF. 18 criteria, weighted, 0&ndash;100 total. If your demo doesn't score 72+, don't send it. Run the checklist, fix the gaps, then submit.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">PDF · Fillable</p>
+            </div>
+
+            <div class="bg-black p-10 space-y-5 group hover:bg-zinc-950 transition-colors">
+              <iconify-icon icon="lucide:mail" class="text-4xl text-cyan-400 group-hover:scale-110 transition-transform"></iconify-icon>
+              <h4 class="font-display font-black uppercase text-2xl tracking-tighter">Sync &amp; Submission Pack</h4>
+              <p class="text-white/50 text-sm font-light leading-relaxed">A real sync one-pager that landed an ad placement. The submission framing script. The cold-DM template that supervisors actually open.</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30">PDF · DOCX · Templates</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEMO SCORECARD PREVIEW -->
+      <section class="py-24 md:py-40 px-4 md:px-12 bg-zinc-950">
+        <div class="max-w-5xl mx-auto">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-8">// 04 Preview — Demo Scorecard</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-4">
+            Score it. Or skip it.
+          </h2>
+          <p class="text-white/40 max-w-2xl font-light text-lg mb-16 leading-relaxed">A taste of the rubric. The full scorecard inside the Vault has 18 criteria across 4 categories.</p>
+
+          <div class="glass p-8 md:p-12 space-y-1">
+            <div class="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">Track Title</p>
+                <p class="font-display text-2xl font-black uppercase tracking-tighter mt-2">YOUR_DEMO.WAV</p>
+              </div>
+              <div class="text-right">
+                <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">Total Score</p>
+                <p class="font-display text-4xl font-black text-red-600 mt-1">— / 100</p>
+              </div>
+            </div>
+
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">01</p>
+              <p class="col-span-7 text-sm font-light">Signature recognizable in &lt; 8 seconds (blind A/B)</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 10</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 10</p>
+            </div>
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">02</p>
+              <p class="col-span-7 text-sm font-light">Integrated LUFS lands within target window (-9 to -14)</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 8</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 8</p>
+            </div>
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">03</p>
+              <p class="col-span-7 text-sm font-light">True-peak ceiling not breached on any transient</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 6</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 6</p>
+            </div>
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">04</p>
+              <p class="col-span-7 text-sm font-light">Low-mid build-up under 300 Hz cleared (no mud)</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 6</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 6</p>
+            </div>
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">05</p>
+              <p class="col-span-7 text-sm font-light">Emotional arc with at least one structural transformation</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 10</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 10</p>
+            </div>
+            <div class="scorecard-row py-4 grid grid-cols-12 gap-4 items-center">
+              <p class="col-span-1 font-mono text-[10px] text-white/30">06</p>
+              <p class="col-span-7 text-sm font-light">Sync-viable: 15s &amp; 30s edit points exist in the arrangement</p>
+              <p class="col-span-2 font-mono text-[10px] uppercase tracking-[0.3em] text-white/40">Weight 8</p>
+              <p class="col-span-2 text-right font-mono text-sm text-white/40">— / 8</p>
+            </div>
+
+            <div class="pt-8 mt-4 border-t border-white/10 flex justify-between items-center">
+              <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/30">+ 12 more criteria in the full Vault</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-red-600">Cutoff: 72</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING -->
+      <section id="pricing" class="py-24 md:py-40 px-4 md:px-12 relative">
+        <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/10"></div>
+        <div class="max-w-6xl mx-auto relative">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-8 text-center">// 05 Pricing</p>
+          <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-16 text-center">Pick your tier</h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Core -->
+            <div class="glass p-10 md:p-14 space-y-8 hover:border-red-600/40 transition-colors">
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40 mb-3">Tier 01</p>
+                  <h3 class="font-display font-black uppercase text-3xl tracking-tighter">Core</h3>
+                </div>
+                <div class="text-right">
+                  <p class="font-display text-5xl font-black">$97</p>
+                  <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/30 mt-2">One time</p>
+                </div>
+              </div>
+
+              <ul class="space-y-4 text-sm font-light text-white/70">
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> OCD Method&trade; Playbook (40-pg)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Signature Stems Pack (1.2 GB)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Mix Templates (Ableton / Logic / FL)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Mastering Chain Presets</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Demo Scorecard (fillable PDF)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-600 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Sync &amp; Submission Pack</li>
+                <li class="flex gap-4 text-white/30"><iconify-icon icon="lucide:x" class="text-white/20 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Automated A&amp;R Scorecard email-back</li>
+              </ul>
+
+              <a href="#checkout" class="block text-center px-10 py-5 border border-white/20 text-white font-display font-black uppercase tracking-widest text-sm hover:bg-white hover:text-black transition-all">
+                Get Core
+              </a>
+            </div>
+
+            <!-- Pro -->
+            <div class="bg-red-600/10 border border-red-600/40 p-10 md:p-14 space-y-8 relative">
+              <span class="absolute top-0 right-0 bg-red-600 text-white text-[10px] font-bold uppercase tracking-[0.3em] px-4 py-2">Recommended</span>
+
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="font-mono text-[10px] uppercase tracking-[0.4em] text-red-400 mb-3">Tier 02</p>
+                  <h3 class="font-display font-black uppercase text-3xl tracking-tighter">Pro</h3>
+                </div>
+                <div class="text-right">
+                  <p class="font-display text-5xl font-black">$297</p>
+                  <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40 mt-2">One time</p>
+                </div>
+              </div>
+
+              <ul class="space-y-4 text-sm font-light text-white/80">
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-500 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Everything in Core</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-500 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Automated A&amp;R Scorecard — upload your demo, get the full 18-criteria report by email</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-500 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Priority submission queue (skip the 14-day wait)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-500 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Bonus stems drop every quarter (lifetime)</li>
+                <li class="flex gap-4"><iconify-icon icon="lucide:check" class="text-red-500 text-lg flex-shrink-0 mt-0.5"></iconify-icon> Sync supervisor contact starter list (12 vetted)</li>
+              </ul>
+
+              <a href="#checkout" class="block text-center px-10 py-5 bg-white text-black font-display font-black uppercase tracking-widest text-sm hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-1">
+                Get Pro
+              </a>
+            </div>
+          </div>
+
+          <p class="text-center text-white/30 font-mono text-[10px] uppercase tracking-[0.4em] mt-12">30-day refund. No questions. If the rubric doesn't change how you finish a track, you get your money back.</p>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="py-24 md:py-32 px-4 md:px-12">
+        <div class="max-w-4xl mx-auto">
+          <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-white/30 mb-8">// 06 FAQ</p>
+          <h2 class="font-display text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] mb-16">Common interference</h2>
+
+          <div class="space-y-px bg-white/5">
+            <details class="bg-black p-8 group">
+              <summary class="flex justify-between items-center cursor-pointer">
+                <h4 class="font-display font-black uppercase text-lg md:text-xl tracking-tighter">Is this a course with videos I'll never watch?</h4>
+                <iconify-icon icon="lucide:plus" class="text-2xl text-red-600 group-open:rotate-45 transition-transform"></iconify-icon>
+              </summary>
+              <p class="text-white/50 text-sm font-light leading-relaxed mt-6">No. It's a kit. A PDF rubric, real stems, real templates, real presets. You can run the entire OCD Method on your next track in one studio session.</p>
+            </details>
+
+            <details class="bg-black p-8 group">
+              <summary class="flex justify-between items-center cursor-pointer">
+                <h4 class="font-display font-black uppercase text-lg md:text-xl tracking-tighter">Do I get signed if I score 72+?</h4>
+                <iconify-icon icon="lucide:plus" class="text-2xl text-red-600 group-open:rotate-45 transition-transform"></iconify-icon>
+              </summary>
+              <p class="text-white/50 text-sm font-light leading-relaxed mt-6">No guarantee — signing is also about timing and roster fit. But a 72+ track gets a real A&amp;R listen instead of being skipped at 11 seconds. That's the bar.</p>
+            </details>
+
+            <details class="bg-black p-8 group">
+              <summary class="flex justify-between items-center cursor-pointer">
+                <h4 class="font-display font-black uppercase text-lg md:text-xl tracking-tighter">What genres does this work for?</h4>
+                <iconify-icon icon="lucide:plus" class="text-2xl text-red-600 group-open:rotate-45 transition-transform"></iconify-icon>
+              </summary>
+              <p class="text-white/50 text-sm font-light leading-relaxed mt-6">Electronic, ambient, cinematic, dark techno, avant-garde. The rubric translates to anything with a producer at the center of the workflow. If you make pop vocals, this isn't for you.</p>
+            </details>
+
+            <details class="bg-black p-8 group">
+              <summary class="flex justify-between items-center cursor-pointer">
+                <h4 class="font-display font-black uppercase text-lg md:text-xl tracking-tighter">Are the stems actually clearable?</h4>
+                <iconify-icon icon="lucide:plus" class="text-2xl text-red-600 group-open:rotate-45 transition-transform"></iconify-icon>
+              </summary>
+              <p class="text-white/50 text-sm font-light leading-relaxed mt-6">Yes. Royalty-free for unlimited use in your own productions, including commercial releases. Resale or redistribution of the raw stems is not permitted.</p>
+            </details>
+
+            <details class="bg-black p-8 group">
+              <summary class="flex justify-between items-center cursor-pointer">
+                <h4 class="font-display font-black uppercase text-lg md:text-xl tracking-tighter">How is this delivered?</h4>
+                <iconify-icon icon="lucide:plus" class="text-2xl text-red-600 group-open:rotate-45 transition-transform"></iconify-icon>
+              </summary>
+              <p class="text-white/50 text-sm font-light leading-relaxed mt-6">Instant download link emailed after checkout. Lifetime access to updates from the OCD Records dashboard. No login wall, no DRM.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA -->
+      <section id="checkout" class="py-24 md:py-40 px-4 md:px-12 relative">
+        <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/10"></div>
+        <div class="max-w-4xl mx-auto text-center space-y-12 relative">
+          <h2 class="font-display text-[40px] md:text-[88px] font-black uppercase leading-[0.85] tracking-tighter">
+            Send the demo<br/>
+            you're <span class="text-red-600">proud</span> of.
+          </h2>
+          <p class="text-white/50 text-xl font-light max-w-2xl mx-auto leading-relaxed">
+            Stop guessing. Run the rubric. The Vault is in your inbox 30 seconds after checkout.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <a href="#pricing" class="px-14 py-6 bg-white text-black font-display font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-2">
+              Get the Vault — $97
+            </a>
+            <a href="submit.html" class="px-14 py-6 border border-white/20 text-white font-display font-black uppercase tracking-widest hover:bg-white/10 transition-all">
+              Or submit raw
+            </a>
+          </div>
+          <p class="font-mono text-[10px] text-white/20 uppercase tracking-[0.5em]">Drop 001 · Launch Window Pricing · Updated Quarterly</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <div v-scope="{ homeHref: 'index.html', instagramHref: '#instagram', twitterHref: '#twitter', youtubeHref: '#youtube', soundcloudHref: '#soundcloud', releasesHref: 'catalog.html', artistsHref: 'artist.html', licensingHref: 'licensing.html', submissionsHref: 'submit.html', vaultHref: 'vault.html', equipmentHref: 'studios.html#equipment', bookingHref: 'studios.html#booking', engineersHref: 'studios.html#engineers', privacyHref: 'privacy.html', termsHref: 'terms.html', cookiesHref: 'cookies.html' }">
+      <footer class="border-t border-white/5 bg-black pt-16 pb-24 md:pt-32 md:pb-32 px-4 md:px-12">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-12 gap-8 md:gap-16 mb-12 md:mb-24">
+            <div class="col-span-12 lg:col-span-4">
+              <a :href="homeHref" class="flex items-center gap-3 mb-10">
+                <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+                  <span class="text-black font-black text-sm font-display">OCD</span>
+                </div>
+                <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+              </a>
+              <p class="text-white/30 text-sm max-w-sm leading-relaxed mb-10 font-light">
+                The curated label for the obsessed creator. Pushing the boundaries of sonic architecture through neural precision and human intuition.
+              </p>
+              <div class="flex gap-8">
+                <a :href="instagramHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+                <a :href="twitterHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:twitter"></iconify-icon></a>
+                <a :href="youtubeHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+                <a :href="soundcloudHref" class="text-2xl text-white/20 hover:text-white transition-colors"><iconify-icon icon="mdi:soundcloud"></iconify-icon></a>
+              </div>
+            </div>
+
+            <div class="col-span-6 lg:col-span-2 space-y-8">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Platform</h6>
+              <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+                <li><a :href="releasesHref" class="hover:text-red-600 transition-colors">Releases</a></li>
+                <li><a :href="artistsHref" class="hover:text-red-600 transition-colors">Artists</a></li>
+                <li><a :href="licensingHref" class="hover:text-red-600 transition-colors">Licensing</a></li>
+                <li><a :href="submissionsHref" class="hover:text-red-600 transition-colors">Submissions</a></li>
+                <li><a :href="vaultHref" class="hover:text-red-600 transition-colors">Vault</a></li>
+              </ul>
+            </div>
+
+            <div class="col-span-6 lg:col-span-2 space-y-8">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Studio</h6>
+              <ul class="text-xs space-y-4 uppercase tracking-[0.2em] font-bold">
+                <li><a :href="equipmentHref" class="hover:text-cyan-400 transition-colors">Equipment</a></li>
+                <li><a :href="bookingHref" class="hover:text-cyan-400 transition-colors">Booking</a></li>
+                <li><a :href="engineersHref" class="hover:text-cyan-400 transition-colors">Engineers</a></li>
+              </ul>
+            </div>
+
+            <div class="col-span-12 lg:col-span-4 space-y-10">
+              <h6 class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20">Subscribe to frequencies</h6>
+              <form @submit.prevent="" class="flex flex-col gap-4">
+                <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border-b border-white/10 px-0 py-4 text-xs font-bold outline-none focus:border-red-600 transition-colors uppercase tracking-[0.4em] placeholder:text-white/10" required>
+                <button type="submit" class="text-[10px] font-bold uppercase tracking-[0.4em] text-left hover:text-red-600 transition-colors">Join Transmission &rarr;</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="flex flex-col md:flex-row justify-between items-center pt-16 border-t border-white/5 gap-6">
+            <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+            <div class="flex gap-10 text-[9px] font-mono text-white/20 uppercase tracking-[0.5em]">
+              <a :href="privacyHref" class="hover:text-white transition-colors">Privacy</a>
+              <a :href="termsHref" class="hover:text-white transition-colors">Terms</a>
+              <a :href="cookiesHref" class="hover:text-white transition-colors">Cookies</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

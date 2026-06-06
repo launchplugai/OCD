@@ -111,6 +111,9 @@
          id="nav-link-licensing" 
          class="transition-colors duration-300" 
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+      <a href="vault.html"
+         id="nav-link-vault"
+         class="transition-colors duration-300 flex items-center gap-2 text-white/40 hover:text-white">Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal">NEW</span></a>
     </nav>
   </div>
   <div class="flex items-center gap-4 md:gap-10">
@@ -131,6 +134,7 @@
       <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
       <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
       <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a href="vault.html" @click="mobileOpen = false" class="text-white py-4 border-b border-white/5">Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal ml-2">NEW</span></a>
       <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
     </nav>
   </div>
@@ -146,6 +150,23 @@
           <h1 class="font-display text-4xl md:text-7xl font-black uppercase tracking-tighter">Artist Submission</h1>
           <p class="text-white/50 text-xl font-light max-w-2xl">Join the sonic architecture. We review every submission manually within 14 business days. Focus on high-fidelity, uncompromising vision.</p>
         </div>
+
+        <a href="vault.html" class="block group mb-16 glass border border-red-600/20 hover:border-red-600/60 p-6 md:p-8 transition-all">
+          <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+            <div class="w-16 h-16 bg-red-600/10 border border-red-600/30 flex items-center justify-center flex-shrink-0 group-hover:bg-red-600 transition-colors">
+              <iconify-icon icon="lucide:clipboard-check" class="text-3xl text-red-500 group-hover:text-white transition-colors"></iconify-icon>
+            </div>
+            <div class="flex-1 space-y-2">
+              <p class="font-mono text-[10px] uppercase tracking-[0.5em] text-red-500">// Score before you send</p>
+              <h3 class="font-display text-xl md:text-2xl font-black uppercase tracking-tighter">Run the OCD Method&trade; rubric first</h3>
+              <p class="text-white/50 text-sm font-light leading-relaxed">We open 2,400 demos and sign four. The Sonic Architecture Vault gives you the exact 18-criteria scorecard A&amp;Rs use here. Score 72+, then submit.</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.4em] text-white group-hover:text-red-500 transition-colors flex-shrink-0">
+              Open Vault
+              <iconify-icon icon="lucide:arrow-up-right" class="text-base"></iconify-icon>
+            </div>
+          </div>
+        </a>
 
         <!-- Progress Bar -->
         <div class="grid grid-cols-3 gap-1 mb-12">

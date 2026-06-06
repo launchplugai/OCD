@@ -27,6 +27,9 @@
          id="nav-link-licensing" 
          class="transition-colors duration-300" 
          :class="activeItem === 'licensing' ? 'text-white' : 'text-white/40 hover:text-white'">Licensing</a>
+      <a href="vault.html"
+         id="nav-link-vault"
+         class="transition-colors duration-300 flex items-center gap-2 text-white/40 hover:text-white">Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal">NEW</span></a>
     </nav>
   </div>
   <div class="flex items-center gap-4 md:gap-10">
@@ -47,6 +50,7 @@
       <a :href="artistsHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Artists</a>
       <a :href="studiosHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Studios</a>
       <a :href="licensingHref" @click="mobileOpen = false" class="text-white/60 hover:text-white py-4 border-b border-white/5">Licensing</a>
+      <a href="vault.html" @click="mobileOpen = false" class="text-white py-4 border-b border-white/5">Vault <span class="text-[8px] px-1.5 py-0.5 bg-red-600 text-white rounded-sm tracking-normal ml-2">NEW</span></a>
       <a :href="discoveryHref" @click="mobileOpen = false" class="mt-6 text-center py-4 bg-white text-black hover:bg-red-600 hover:text-white transition-all">Discovery Call</a>
     </nav>
   </div>
