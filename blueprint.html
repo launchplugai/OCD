@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCD Records | The Blueprint — Obsession-to-Artifact Protocol</title>
+  <meta name="description" content="The OCD Records Productize Yourself blueprint: the Obsession-to-Artifact (OTA) Protocol that turns bedroom producers into label-ready artists — no A&R, no gatekeepers, no live sessions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;900&family=Manrope:wght@300;400;600;800&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --crimson: #dc2626;
+      --electric-blue: #00d4ff;
+      --pure-black: #000000;
+      --pure-white: #ffffff;
+    }
+
+    .font-display { font-family: 'Archivo', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-dark {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .noise-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      opacity: 0.03;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      filter: blur(150px);
+      z-index: -1;
+      opacity: 0.15;
+      background: radial-gradient(circle, var(--crimson) 0%, transparent 70%);
+    }
+
+    .reveal-anim { animation: reveal 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards; }
+    @keyframes reveal {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-bar {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .score-bar > span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: linear-gradient(90deg, var(--crimson), #ff6b6b);
+    }
+
+    .rail-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.5em;
+      color: rgba(255,255,255,0.25);
+      text-transform: uppercase;
+    }
+
+    html { background-color: #000000; }
+  </style>
+</head>
+<body class="bg-black text-white font-['Manrope']">
+  <div class="min-h-screen relative overflow-x-hidden selection:bg-red-600 selection:text-white">
+    <div class="noise-bg"></div>
+
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full z-40 bg-black/80 backdrop-blur-md border-b border-white/5 px-4 py-4 md:px-12 md:py-6 flex items-center justify-between">
+      <div class="flex items-center gap-4 lg:gap-16">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm group-hover:bg-red-600 transition-colors duration-500">
+            <span class="text-black font-black text-sm font-display">OCD</span>
+          </div>
+          <span class="font-display font-black uppercase tracking-tighter text-2xl">Records</span>
+        </a>
+        <nav class="hidden lg:flex gap-10 text-[11px] font-bold uppercase tracking-[0.4em]">
+          <a href="catalog.html" class="text-white/40 hover:text-white transition-colors duration-300">Catalog</a>
+          <a href="artist.html" class="text-white/40 hover:text-white transition-colors duration-300">Artists</a>
+          <a href="studios.html" class="text-white/40 hover:text-white transition-colors duration-300">Studios</a>
+          <a href="licensing.html" class="text-white/40 hover:text-white transition-colors duration-300">Licensing</a>
+          <a href="blueprint.html" class="text-white transition-colors duration-300">Blueprint</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4 md:gap-10">
+        <a href="submit.html" class="hidden sm:inline-block text-[10px] font-bold uppercase tracking-[0.4em] px-8 py-3 bg-white text-black hover:bg-red-600 hover:text-white transition-all duration-500">
+          Get The Vault
+        </a>
+      </div>
+    </header>
+
+    <main class="pt-32">
+
+      <!-- Hero -->
+      <section class="relative min-h-[85vh] flex flex-col justify-center px-4 md:px-12 pb-24">
+        <div class="hero-glow top-[-200px] left-[-200px]"></div>
+        <div class="hero-glow bottom-[-100px] right-[-300px]" style="background: radial-gradient(circle, var(--electric-blue) 0%, transparent 70%);"></div>
+
+        <div class="max-w-7xl mx-auto w-full reveal-anim">
+          <p class="font-mono text-[11px] uppercase tracking-[0.6em] text-red-600 mb-8">// The Blueprint / v1.0</p>
+          <h1 class="font-display text-[clamp(48px,9vw,130px)] font-black leading-[0.82] uppercase tracking-tighter mb-12">
+            Obsession,<br/>
+            Productized.
+          </h1>
+          <div class="grid md:grid-cols-2 gap-16 items-start">
+            <p class="max-w-xl text-xl text-white/60 leading-relaxed font-light">
+              The complete Productize Yourself blueprint for OCD Records — a system that turns our obsession with sonic architecture into a product that sells at 3am, without a call, without a session, without us online.
+            </p>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="glass p-6">
+                <p class="rail-num mb-3">Named Method</p>
+                <p class="font-display font-black text-2xl uppercase tracking-tighter leading-none">OTA<br/>Protocol</p>
+              </div>
+              <div class="glass p-6">
+                <p class="rail-num mb-3">Build Window</p>
+                <p class="font-display font-black text-2xl uppercase tracking-tighter leading-none">30<br/>Days</p>
+              </div>
+              <div class="glass p-6">
+                <p class="rail-num mb-3">Target Margin</p>
+                <p class="font-display font-black text-2xl uppercase tracking-tighter leading-none">&gt;90%</p>
+              </div>
+              <div class="glass p-6">
+                <p class="rail-num mb-3">Live Presence</p>
+                <p class="font-display font-black text-2xl uppercase tracking-tighter leading-none text-red-500">0 hrs</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 01 Core Transformation -->
+      <section class="py-16 md:py-32 px-4 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div class="space-y-4">
+              <p class="rail-num">// 01 Core Transformation</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">The Single Most<br/>Valuable Delivery</h2>
+            </div>
+            <p class="max-w-md text-sm text-white/40 leading-relaxed">
+              One transformation. One outcome. Everything else in the blueprint is scaffolding around this promise.
+            </p>
+          </div>
+
+          <div class="glass-dark p-8 md:p-16">
+            <p class="rail-num mb-8">Transformation Statement</p>
+            <p class="font-display text-2xl md:text-4xl leading-tight tracking-tight">
+              We help <span class="text-red-500">obsessed independent producers</span> go from
+              <span class="text-white/40 line-through">unreleased bedroom demos</span>
+              to a <span class="text-white">licensable, radio-mastered catalog</span> using
+              the <span class="text-red-500">Obsession-to-Artifact (OTA) Protocol</span>.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/5">
+              <div>
+                <p class="rail-num mb-4">Before</p>
+                <ul class="space-y-3 text-white/50 text-sm leading-relaxed">
+                  <li>— 200 unfinished project files</li>
+                  <li>— Mixes that fall apart on car speakers</li>
+                  <li>— No release, no PRO income, no sync deals</li>
+                  <li>— Waiting for a label that isn't coming</li>
+                </ul>
+              </div>
+              <div>
+                <p class="rail-num mb-4">After</p>
+                <ul class="space-y-3 text-white/80 text-sm leading-relaxed">
+                  <li>— Finished, mastered, DDP-ready catalog</li>
+                  <li>— Loudness &amp; headroom that pass any platform</li>
+                  <li>— Sync-licensable stems and metadata</li>
+                  <li>— A distribution-ready identity as an artist</li>
+                </ul>
+              </div>
+              <div>
+                <p class="rail-num mb-4">The Mechanism</p>
+                <ul class="space-y-3 text-white/80 text-sm leading-relaxed">
+                  <li>— 5-phase OTA Protocol</li>
+                  <li>— OCD reference stems &amp; templates</li>
+                  <li>— The 5-Frequency scorecard</li>
+                  <li>— A named artifact at each phase</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02 Three Product Formats -->
+      <section class="py-16 md:py-32 px-4 md:px-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div class="space-y-4">
+              <p class="rail-num">// 02 Product Format Analysis</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">Three Formats,<br/>One Winner.</h2>
+            </div>
+            <p class="max-w-md text-sm text-white/40 leading-relaxed">
+              Scored on the three constraints that matter: leverage (does it sell without us), feasibility (buildable in 30 days), margin (above 70%).
+            </p>
+          </div>
+
+          <!-- Scoring table -->
+          <div class="glass-dark overflow-x-auto">
+            <table class="w-full min-w-[720px] text-left">
+              <thead class="border-b border-white/10">
+                <tr class="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">
+                  <th class="p-6">Format</th>
+                  <th class="p-6">Leverage</th>
+                  <th class="p-6">Feasibility</th>
+                  <th class="p-6">Margin</th>
+                  <th class="p-6">Score</th>
+                </tr>
+              </thead>
+              <tbody class="text-sm">
+                <tr class="border-b border-white/5 bg-red-600/5">
+                  <td class="p-6">
+                    <p class="font-display font-black uppercase text-lg">OCD Master Vault</p>
+                    <p class="text-white/40 text-xs mt-1">Self-serve digital product + template pack</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:95%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">9.5 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:90%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">9.0 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:95%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">92% margin</p>
+                  </td>
+                  <td class="p-6">
+                    <p class="font-display font-black text-3xl text-red-500">28.0</p>
+                    <p class="rail-num mt-1">Winner</p>
+                  </td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="p-6">
+                    <p class="font-display font-black uppercase text-lg">Signal-to-Artifact</p>
+                    <p class="text-white/40 text-xs mt-1">Browser tool: 5-Frequency mix scorecard</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:90%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">9.0 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:55%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">5.5 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:80%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">80% margin</p>
+                  </td>
+                  <td class="p-6">
+                    <p class="font-display font-black text-3xl text-white/70">22.5</p>
+                    <p class="rail-num mt-1">Phase 2</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-6">
+                    <p class="font-display font-black uppercase text-lg">The Transmission</p>
+                    <p class="text-white/40 text-xs mt-1">Paid community + monthly drop cycle</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:65%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">6.5 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:80%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">8.0 / 10</p>
+                  </td>
+                  <td class="p-6">
+                    <div class="score-bar mb-2"><span style="width:75%"></span></div>
+                    <p class="font-mono text-[10px] text-white/60">75% margin</p>
+                  </td>
+                  <td class="p-6">
+                    <p class="font-display font-black text-3xl text-white/70">22.0</p>
+                    <p class="rail-num mt-1">Phase 3</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mt-8 text-xs text-white/40 font-mono uppercase tracking-[0.3em] max-w-2xl">
+            Scoring rejects any format requiring live presence to deliver. The Transmission passes only because its drops are pre-produced; a coaching layer would disqualify it.
+          </p>
+        </div>
+      </section>
+
+      <!-- 03 Winning Product -->
+      <section class="py-16 md:py-32 px-4 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div class="space-y-4">
+              <p class="rail-num">// 03 The Winning Product</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">The OCD<br/>Master Vault.</h2>
+            </div>
+            <p class="max-w-md text-sm text-white/40 leading-relaxed">
+              A self-serve digital vault that teaches, tools, and certifies the OTA Protocol end-to-end. No live sessions. No calendar. No exceptions.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-12 gap-8">
+            <!-- Contents -->
+            <div class="md:col-span-7 glass-dark p-8 md:p-12">
+              <p class="rail-num mb-6">Contents</p>
+              <ul class="space-y-6">
+                <li class="flex gap-6 pb-6 border-b border-white/5">
+                  <span class="font-mono text-red-500 text-xs mt-1">01</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">The OTA Field Manual</p>
+                    <p class="text-white/50 text-sm mt-1">120-page written protocol with per-phase decisions, thresholds, and pass/fail tests. PDF + web.</p>
+                  </div>
+                </li>
+                <li class="flex gap-6 pb-6 border-b border-white/5">
+                  <span class="font-mono text-red-500 text-xs mt-1">02</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">Reference Stems Pack</p>
+                    <p class="text-white/50 text-sm mt-1">14 fully-mastered stems from the OCD catalog, licensed for A/B reference against your own mixes.</p>
+                  </div>
+                </li>
+                <li class="flex gap-6 pb-6 border-b border-white/5">
+                  <span class="font-mono text-red-500 text-xs mt-1">03</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">Session Templates</p>
+                    <p class="text-white/50 text-sm mt-1">Ableton, Logic, and Pro Tools session files pre-wired to the 5-Frequency chain used on every OCD release.</p>
+                  </div>
+                </li>
+                <li class="flex gap-6 pb-6 border-b border-white/5">
+                  <span class="font-mono text-red-500 text-xs mt-1">04</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">The 5-Frequency Scorecard</p>
+                    <p class="text-white/50 text-sm mt-1">A browser-based scorer that grades your bounce on loudness, headroom, dynamics, stereo image, and tonal balance — issues an OCD Certified badge above 85.</p>
+                  </div>
+                </li>
+                <li class="flex gap-6 pb-6 border-b border-white/5">
+                  <span class="font-mono text-red-500 text-xs mt-1">05</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">Licensing &amp; Metadata Kit</p>
+                    <p class="text-white/50 text-sm mt-1">Templates for ISRC, ISWC, PRO registration, and sync-ready metadata — the paperwork that turns a mix into an artifact.</p>
+                  </div>
+                </li>
+                <li class="flex gap-6">
+                  <span class="font-mono text-red-500 text-xs mt-1">06</span>
+                  <div>
+                    <p class="font-display font-black uppercase text-lg">Priority Submission Slot</p>
+                    <p class="text-white/50 text-sm mt-1">A single reserved submission slot to OCD Records — reviewed within 14 days by a human, not a form filter.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Delivery + Pricing -->
+            <div class="md:col-span-5 space-y-8">
+              <div class="glass-dark p-8">
+                <p class="rail-num mb-6">Delivery Mechanism</p>
+                <ul class="space-y-4 text-white/60 text-sm leading-relaxed">
+                  <li>→ Purchased from <span class="text-white">/blueprint</span> on the OCD site.</li>
+                  <li>→ Stripe checkout, instant fulfillment.</li>
+                  <li>→ Auto-generated private vault URL emailed on receipt.</li>
+                  <li>→ Downloads gated by a signed token — no accounts, no logins.</li>
+                  <li>→ Scorecard runs entirely client-side in the browser.</li>
+                  <li>→ Zero human touch required post-purchase.</li>
+                </ul>
+              </div>
+
+              <div class="glass-dark p-8">
+                <p class="rail-num mb-6">Price Point</p>
+                <p class="font-display font-black text-6xl tracking-tighter">$497</p>
+                <p class="text-white/50 text-sm leading-relaxed mt-4">
+                  Positioned below a single mastering session ($150–$300 per track) but above a course impulse purchase ($97). Anchored against the outcome — a licensable catalog — not against course hours.
+                </p>
+                <p class="rail-num mt-6 text-red-500">Founding tier: $297 for first 100</p>
+              </div>
+
+              <div class="glass-dark p-8">
+                <p class="rail-num mb-6">What Makes It Irreplaceable</p>
+                <ul class="space-y-3 text-white/60 text-sm leading-relaxed">
+                  <li>— The stems are from actual OCD releases. Nobody else has them.</li>
+                  <li>— The 5-Frequency scorecard is the label's own A&amp;R filter, now public.</li>
+                  <li>— The submission slot converts learners into signed artists — a feedback loop no course can copy.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 OTA Protocol -->
+      <section class="py-16 md:py-32 px-4 md:px-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div class="space-y-4">
+              <p class="rail-num">// 04 The Named Method</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">The OTA Protocol.<br/>Five Phases.</h2>
+            </div>
+            <p class="max-w-md text-sm text-white/40 leading-relaxed">
+              Obsession-to-Artifact. Each phase produces a named artifact; you cannot advance without it. This is the proprietary mechanism.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-5 gap-4">
+            <div class="glass p-6 md:p-8 border-t-2 border-t-red-600">
+              <p class="rail-num mb-6">Phase 01</p>
+              <p class="font-display font-black text-3xl uppercase tracking-tighter mb-4">Signal</p>
+              <p class="text-white/50 text-sm leading-relaxed mb-6">Raw capture discipline. Gain-staging, sample rate lock, dead-room reference.</p>
+              <p class="rail-num text-red-500">Artifact: Signal Sheet</p>
+            </div>
+            <div class="glass p-6 md:p-8 border-t-2 border-t-red-600">
+              <p class="rail-num mb-6">Phase 02</p>
+              <p class="font-display font-black text-3xl uppercase tracking-tighter mb-4">Structure</p>
+              <p class="text-white/50 text-sm leading-relaxed mb-6">Arrangement passes the 32-bar test. Every section earns its place or gets cut.</p>
+              <p class="rail-num text-red-500">Artifact: Arrangement Map</p>
+            </div>
+            <div class="glass p-6 md:p-8 border-t-2 border-t-red-600">
+              <p class="rail-num mb-6">Phase 03</p>
+              <p class="font-display font-black text-3xl uppercase tracking-tighter mb-4">Space</p>
+              <p class="text-white/50 text-sm leading-relaxed mb-6">Depth, width, and tonal balance built to reference against OCD stems.</p>
+              <p class="rail-num text-red-500">Artifact: Spatial Print</p>
+            </div>
+            <div class="glass p-6 md:p-8 border-t-2 border-t-red-600">
+              <p class="rail-num mb-6">Phase 04</p>
+              <p class="font-display font-black text-3xl uppercase tracking-tighter mb-4">Saturation</p>
+              <p class="text-white/50 text-sm leading-relaxed mb-6">Harmonic character committed. The mix stops being polite and becomes a statement.</p>
+              <p class="rail-num text-red-500">Artifact: Character Bounce</p>
+            </div>
+            <div class="glass p-6 md:p-8 border-t-2 border-t-red-600">
+              <p class="rail-num mb-6">Phase 05</p>
+              <p class="font-display font-black text-3xl uppercase tracking-tighter mb-4">Certification</p>
+              <p class="text-white/50 text-sm leading-relaxed mb-6">Pass the 5-Frequency scorecard at 85+. Metadata, ISRC, and delivery masters generated.</p>
+              <p class="rail-num text-red-500">Artifact: OCD Certified Master</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 Distribution -->
+      <section class="py-16 md:py-32 px-4 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-12">
+          <div class="md:col-span-5 space-y-4">
+            <p class="rail-num">// 05 Distribution Channel</p>
+            <h2 class="font-display text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none">Where It Lives.<br/>Where It Sells.</h2>
+            <p class="text-white/40 text-sm leading-relaxed max-w-md pt-4">
+              Rule: distribution must match a platform we already own. No new channels from zero.
+            </p>
+          </div>
+
+          <div class="md:col-span-7 space-y-6">
+            <div class="glass-dark p-8">
+              <p class="rail-num text-red-500 mb-4">Primary Channel</p>
+              <p class="font-display font-black uppercase text-2xl mb-3">The Submissions Funnel</p>
+              <p class="text-white/60 text-sm leading-relaxed">
+                Every producer who submits to OCD Records already self-identifies as our exact buyer. Today 100% of rejections receive a form email. Tomorrow, every rejection also receives the Vault offer with rationale: "Here is what your submission missed against the 5-Frequency scorecard. Here is the protocol we use." Conversion at the moment of highest intent.
+              </p>
+            </div>
+
+            <div class="glass-dark p-8">
+              <p class="rail-num mb-4">Secondary Amplifiers (Owned)</p>
+              <ul class="space-y-3 text-white/60 text-sm leading-relaxed">
+                <li>— <span class="text-white">/studios</span> page: cross-sells to producers browsing engineer rates.</li>
+                <li>— <span class="text-white">/licensing</span> page: appeals to producers wanting sync-ready work.</li>
+                <li>— <span class="text-white">Release page footers</span>: each release becomes a proof point linking to the Vault.</li>
+                <li>— <span class="text-white">Transmission newsletter</span>: existing subscribers, one drop per release cycle.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 Positioning -->
+      <section class="py-16 md:py-32 px-4 md:px-12 bg-zinc-950 border-t border-white/5">
+        <div class="max-w-5xl mx-auto text-center space-y-10">
+          <p class="rail-num">// 06 Launch Positioning</p>
+          <p class="font-display text-3xl md:text-5xl leading-tight tracking-tight">
+            "The obsession-to-artifact protocol that turns
+            <span class="text-red-500">bedroom producers</span>
+            into <span class="text-white">label-ready artists</span> — no A&amp;R, no gatekeepers,
+            no live sessions."
+          </p>
+          <p class="rail-num text-white/30">One sentence. Ships on every surface. Ships tomorrow.</p>
+        </div>
+      </section>
+
+      <!-- 07 Week 1 Roadmap -->
+      <section class="py-16 md:py-32 px-4 md:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-4">
+            <div class="space-y-4">
+              <p class="rail-num">// 07 Week 1 Build Roadmap</p>
+              <h2 class="font-display text-4xl md:text-6xl font-black uppercase tracking-tighter">Three Tasks.<br/>Start Today.</h2>
+            </div>
+            <p class="max-w-md text-sm text-white/40 leading-relaxed">
+              A 30-day product needs a 7-day spine. These are the only three things that matter this week.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass-dark p-8 md:p-10 space-y-5">
+              <p class="font-display font-black text-6xl text-red-600 leading-none">01</p>
+              <p class="font-display font-black uppercase text-xl leading-tight">Write the OTA Field Manual v0.1</p>
+              <p class="text-white/50 text-sm leading-relaxed">
+                Draft each of the five phases as a written decision tree with pass/fail gates. Every phase must end in a named artifact. Ship a 20-page skeleton — polish later.
+              </p>
+              <p class="rail-num text-red-500">Owner: Head of A&amp;R · Deadline: Day 3</p>
+            </div>
+
+            <div class="glass-dark p-8 md:p-10 space-y-5">
+              <p class="font-display font-black text-6xl text-red-600 leading-none">02</p>
+              <p class="font-display font-black uppercase text-xl leading-tight">Build the 5-Frequency Scorecard</p>
+              <p class="text-white/50 text-sm leading-relaxed">
+                Browser tool: WebAudio analysis of an uploaded WAV, scoring loudness, headroom, dynamics, stereo width, and tonal balance. All client-side. No backend. The certifier becomes the demo.
+              </p>
+              <p class="rail-num text-red-500">Owner: Engineering · Deadline: Day 5</p>
+            </div>
+
+            <div class="glass-dark p-8 md:p-10 space-y-5">
+              <p class="font-display font-black text-6xl text-red-600 leading-none">03</p>
+              <p class="font-display font-black uppercase text-xl leading-tight">Wire the Rejection Funnel</p>
+              <p class="text-white/50 text-sm leading-relaxed">
+                Every declined submission auto-receives the Vault offer with a personalized 5-Frequency scorecard for their submitted track. This is the primary channel — it must ship before the Vault does.
+              </p>
+              <p class="rail-num text-red-500">Owner: Ops · Deadline: Day 7</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Closing CTA -->
+      <section class="py-24 md:py-48 relative border-t border-white/5">
+        <div class="hero-glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600/10"></div>
+        <div class="max-w-4xl mx-auto px-4 md:px-12 text-center space-y-12">
+          <p class="rail-num">// Ship It</p>
+          <h2 class="font-display text-[40px] md:text-[80px] font-black uppercase leading-[0.9] tracking-tighter">
+            Obsession Compounds.<br/>Products Distribute.
+          </h2>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <a href="submit.html" class="px-14 py-6 bg-white text-black font-display font-black uppercase tracking-widest hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-2">
+              Reserve The Vault
+            </a>
+            <a href="index.html" class="px-14 py-6 border border-white/20 text-white font-display font-black uppercase tracking-widest hover:bg-white/10 transition-all transform hover:-translate-y-2">
+              Back to Home
+            </a>
+          </div>
+          <p class="font-mono text-[10px] text-white/20 uppercase tracking-[0.5em]">Blueprint v1.0 · Q1 Build Cycle</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/5 bg-black pt-16 pb-24 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto grid grid-cols-12 gap-8 md:gap-16">
+        <div class="col-span-12 lg:col-span-5">
+          <a href="index.html" class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 bg-white flex items-center justify-center rounded-sm">
+              <span class="text-black font-black text-sm font-display">OCD</span>
+            </div>
+            <span class="font-display font-black uppercase text-2xl tracking-tighter">Records</span>
+          </a>
+          <p class="text-white/30 text-sm max-w-sm leading-relaxed font-light">
+            The curated label for the obsessed creator. Now productized.
+          </p>
+        </div>
+        <div class="col-span-6 lg:col-span-4">
+          <h6 class="rail-num mb-6">Explore</h6>
+          <ul class="space-y-3 text-sm text-white/60">
+            <li><a href="catalog.html" class="hover:text-red-600 transition-colors">Catalog</a></li>
+            <li><a href="artist.html" class="hover:text-red-600 transition-colors">Artists</a></li>
+            <li><a href="studios.html" class="hover:text-red-600 transition-colors">Studios</a></li>
+            <li><a href="licensing.html" class="hover:text-red-600 transition-colors">Licensing</a></li>
+            <li><a href="submit.html" class="hover:text-red-600 transition-colors">Submissions</a></li>
+          </ul>
+        </div>
+        <div class="col-span-6 lg:col-span-3">
+          <h6 class="rail-num mb-6">Legal</h6>
+          <ul class="space-y-3 text-sm text-white/60">
+            <li><a href="privacy.html" class="hover:text-red-600 transition-colors">Privacy</a></li>
+            <li><a href="terms.html" class="hover:text-red-600 transition-colors">Terms</a></li>
+            <li><a href="cookies.html" class="hover:text-red-600 transition-colors">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto pt-16 mt-16 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
+        <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">© 2024 OCD RECORDS. ALL FREQUENCIES SECURED.</p>
+        <p class="font-mono text-[9px] text-white/20 uppercase tracking-[0.5em]">Blueprint · v1.0</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
